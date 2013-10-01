@@ -21,7 +21,7 @@
 
 	<bean id="viewResolver" class="com.mitchellbosecke.pebble.spring.PebbleViewResolver">
 		<property name="prefix" value="\WEB-INF\views\" />
-		<property name="suffix" value=".peb" />
+		<property name="suffix" value=".html.twig" />
 		<property name="templateLoader">
 			<bean class="com.mitchellbosecke.pebble.spring.PebbleTemplateLoader" />
 		</property>
