@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="resources/css/style.css" />
+        
+        <title>Pebble</title>
+    </head>
+    <body>
+    
+    	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    		<div class="container">
+    			<div class="navbar-header">
+			    	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+				    </button>
+				    <a class="navbar-brand" href="#">Pebble</a>
+			  	</div>
+			  	
+				<div class="collapse navbar-collapse navbar-ex1-collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">About</a></li>
+						<li><a href="#">Documentation</a></li>
+						<li><a href="#">Release Notes</a></li>
+				    </ul>
+				</div>
+    		</div><!-- end nav container -->
+    	</div><!-- end navbar -->
+    
+    	<div class="container">
+        	<div id="content">
+        		{% block content %}{% endblock content %}
+    		</div>
+		</div>
+        
+        <div id="footer">
+        	{% block footer %} {% endblock footer %}
+        </div>
+        
+        <script src="//code.jquery.com/jquery.js"></script>
+        <script src="resources/js/bootstrap.min.js"></script>
+    </body>
+</html>
