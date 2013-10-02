@@ -8,7 +8,7 @@
     </head>
     <body>
     
-    	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    	<div class="pebble-nav navbar navbar-inverse navbar-fixed-top" role="navigation">
     		<div class="container">
     			<div class="navbar-header">
 			    	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -31,6 +31,12 @@
 				</div>
     		</div><!-- end nav container -->
     	</div><!-- end navbar -->
+    	
+    	<div class="pebble-header">
+    		<div class="container">
+    			{% block pageheader %}{% endblock pageheader %}
+    		</div>
+    	</div>
     
     	<div class="container">
         	<div id="content">
@@ -39,7 +45,7 @@
 		</div>
         
         <div id="footer">
-        	{% block footer %} {% endblock footer %}
+        	{% block footer %}{% endblock footer %}
         </div>
         
         <script src="//code.jquery.com/jquery.js"></script>
