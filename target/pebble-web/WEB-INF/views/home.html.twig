@@ -1,5 +1,10 @@
 {% extends "base" %}
 
+{% block navigation %}
+	{% set activeNav = "Home" %}
+	{{ parent() }}
+{% endblock navigation %}
+
 {% block pageheader %}
 	<h1>Pebble</h1> 
     <p>A modern Java templating engine that goes lightning fast. Easy to learn, easy to read, ready for anything.</p>
@@ -8,7 +13,7 @@
 		<a class="btn btn-success btn-lg" href="documentation/installation">Get started</a>
 	</p>
 	<p>
-		Alpha: <a class="version-number" href="release-notes">0.0.1</a>
+		Version: <a class="version-number" href="release-notes">0.0.1-alpha</a>
 	</p>
 {% endblock pageheader %}
 

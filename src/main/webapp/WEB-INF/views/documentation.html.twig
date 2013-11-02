@@ -1,9 +1,8 @@
 {% extends "base" %}
 
 {% block navigation %}
-	<li><a href="home">Home</a></li>
-	<li class="active"><a href="documentation">Documentation</a></li>
-	<li><a href="release-notes">Release Notes</a></li>
+	{% set activeNav = "Documentation" %}
+	{{ parent() }}
 {% endblock navigation %}
 
 {% block pageheader %}

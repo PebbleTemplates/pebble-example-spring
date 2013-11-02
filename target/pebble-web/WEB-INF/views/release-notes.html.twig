@@ -1,10 +1,17 @@
 {% extends "base" %}
 
 {% block navigation %}
+	{% set activeNav = "Release Notes" %}
+	{{ parent() }}
+{% endblock navigation %}
+
+{#
+{% block navigation %}
 	<li><a href="home">Home</a></li>
 	<li><a href="documentation">Documentation</a></li>
 	<li class="active"><a href="release-notes">Release Notes</a></li>
 {% endblock navigation %}
+#}
 
 {% block pageheader %}
 	<h1>Release Notes</h1> 
