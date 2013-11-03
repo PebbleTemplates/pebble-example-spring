@@ -2,16 +2,32 @@ package com.mitchellbosecke.pebble.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
 @RequestMapping(value="/documentation")
-public class DocumentationController {
+public class DocumentationController extends BaseController {
 
-	@RequestMapping(method=RequestMethod.GET)
-	public String getView() {
-		return "documentation";
+	@RequestMapping()
+	public ModelAndView getDocumentationIndex() {
+		ModelAndView mav = getMav();
+		mav.setViewName("documentation");
+		return mav;
+	}
+	
+	@RequestMapping("/installation")
+	public ModelAndView getInstallation(){
+		ModelAndView mav = getMav();
+		mav.setViewName("documentation/installation");
+		return mav;
+	}
+	
+	@RequestMapping("/basic-usage")
+	public ModelAndView getBasicUsage(){
+		ModelAndView mav = getMav();
+		mav.setViewName("documentation/basic-usage");
+		return mav;
 	}
 
 }

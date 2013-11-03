@@ -1,8 +1,8 @@
-body{min-height:2000px; padding-top:50px;}
+body{min-height:2000px; padding-top:50px; font-size:16px;}
 
 .pebble-nav {background-color:#3D657C; border-color:#335163;}
 
-.pebble-header{ font-size:21px; text-align:left; padding:30px 15px 40px; font-size:16px; text-shadow:0 1px 0 rgba(0,0,0,.15); background-color:#3D657C; color:#C5EAFF;}
+.pebble-header{ text-align:left; padding:30px 15px 40px; text-shadow:0 1px 0 rgba(0,0,0,.15); background-color:#3D657C; color:#C5EAFF;}
 .pebble-header h1, .pebble-header p { margin-right: 380px; }
 .pebble-header h1 { font-size:60px; line-height:1; color:#fff; }
 a.version-number{font-size:14px; text-decoration:underline;}

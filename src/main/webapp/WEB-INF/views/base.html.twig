@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="resources/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="resources/css/style.css" />
+		<link rel="stylesheet" href="/{{ contextRoot }}/resources/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/{{ contextRoot }}/resources/css/style.css" />
         
         <title>Pebble</title>
     </head>
@@ -23,9 +23,9 @@
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 					<ul class="nav navbar-nav">
 						{%  block navigation %}
-							{{ this.navItem("Home", "home", "Home" is equalTo(activeNav) ) }}
-							{{ this.navItem("Documentation", "documentation", "Documentation" is equalTo(activeNav) ) }}
-							{{ this.navItem("Release Notes", "release-notes", "Release Notes" is equalTo(activeNav) ) }}
+							{{ _self.navItem("Home", "home", "Home" is equalTo(activeNav) ) }}
+							{{ _self.navItem("Documentation", "documentation", "Documentation" is equalTo(activeNav) ) }}
+							{{ _self.navItem("Release Notes", "release-notes", "Release Notes" is equalTo(activeNav) ) }}
 						{% endblock navigation %}
 				    </ul>
 				</div>
@@ -49,10 +49,10 @@
         </div>
         
         <script src="//code.jquery.com/jquery.js"></script>
-        <script src="resources/js/bootstrap.min.js"></script>
+        <script src="/{{ contextRoot }}/resources/js/bootstrap.min.js"></script>
     </body>
 </html>
 
 {% macro navItem(name, href, active) %}
-	<li class="{{ active? "active" : "" }}"><a href="{{ href }}">{{ name }}</a></li>
+	<li class="{{ active? "active" : "" }}"><a href="/{{contextRoot}}/{{ href }}">{{ name }}</a></li>
 {% endmacro %}
