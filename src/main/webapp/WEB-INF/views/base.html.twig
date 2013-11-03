@@ -24,8 +24,9 @@
 					<ul class="nav navbar-nav">
 						{%  block navigation %}
 							{{ _self.navItem("Home", "home", "Home" is equalTo(activeNav) ) }}
+							{{ _self.navItem("Get Started", "get-started", "Get Started" is equalTo(activeNav) ) }}
 							{{ _self.navItem("Documentation", "documentation", "Documentation" is equalTo(activeNav) ) }}
-							{{ _self.navItem("Release Notes", "release-notes", "Release Notes" is equalTo(activeNav) ) }}
+							{{ _self.navItem("Blog", "blog", "Blog" is equalTo(activeNav) ) }}
 						{% endblock navigation %}
 				    </ul>
 				</div>

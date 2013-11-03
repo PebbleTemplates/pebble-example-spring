@@ -1,0 +1,14 @@
+{% extends "documentation" %}
+
+{% block content %}
+
+	<ol class="breadcrumb">
+		{% block breadcrumb %}
+		{% endblock breadcrumb %}
+	</ol>
+	
+	<h2>{% block componentName %}{% endblock componentName %} </h2>
+	
+	{% block componentDetails %}{% endblock componentDetails %}
+	
+{% endblock content%}

@@ -1,12 +1,12 @@
 package com.mitchellbosecke.pebble.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-
 @Controller
-@RequestMapping(value="/documentation")
+@RequestMapping(value = "/documentation")
 public class DocumentationController extends BaseController {
 
 	@RequestMapping()
@@ -15,18 +15,19 @@ public class DocumentationController extends BaseController {
 		mav.setViewName("documentation");
 		return mav;
 	}
-	
-	@RequestMapping("/installation")
-	public ModelAndView getInstallation(){
+
+	@RequestMapping("/{guideName}")
+	public ModelAndView getGuide(@PathVariable("guideName") String guideName) {
 		ModelAndView mav = getMav();
-		mav.setViewName("documentation/installation");
+		mav.setViewName("documentation/guides/" + guideName);
 		return mav;
 	}
-	
-	@RequestMapping("/basic-usage")
-	public ModelAndView getBasicUsage(){
+
+	@RequestMapping("/{type}/{name}")
+	public ModelAndView getComponentReference(@PathVariable("type") String type, @PathVariable("name") String name) {
 		ModelAndView mav = getMav();
-		mav.setViewName("documentation/basic-usage");
+		StringBuilder templateName = new StringBuilder("documentation/reference/");
+		mav.setViewName(templateName.append(type).append("/").append(name).toString());
 		return mav;
 	}
 
