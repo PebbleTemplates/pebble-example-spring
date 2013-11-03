@@ -11,5 +11,120 @@
 {% endblock pageheader %}
 
 {% block content %}
-	<h1>Documentation</h1>
+	<h2>Documentation</h2>
+	<ul>
+		<li><a href="documentation/installation">Installation</a></li>
+		<li><a href="documentation/basic-usage">Basic Usage</a></li>
+		<li><a href="documentation/recipes">Recipes</a></li>
+	</ul>
+	
+	<h2>Reference</h2>
+	
+	<div class="row">
+		<div class="col-md-3"><h3>Tags</h3></div>
+		<div class="col-md-3"><h3>Filters</h3></div>
+		<div class="col-md-3"><h3>Functions</h3></div>
+		<div class="col-md-3"><h3>Tests</h3></div>
+	</div>
+	<div class="row">
+		{{ this.referenceItem("tag", "block") }}
+		{{ this.referenceItem("filter", "abbreviate") }}
+		{{ this.referenceItem("function", "block") }}
+		{{ this.referenceItem("test", "empty") }}
+	</div>
+	<div class="row">
+		{{ this.referenceItem("tag", "extends") }}
+		{{ this.referenceItem("filter", "capitalize") }}
+		{{ this.referenceItem("function", "parent") }}
+		{{ this.referenceItem("test", "even") }}
+	</div>
+	<div class="row">
+		{{ this.referenceItem("tag", "for") }}
+		{{ this.referenceItem("filter", "date") }}
+		{{ this.emptyReferenceItem() }}
+		{{ this.referenceItem("test", "null") }}
+	</div>
+	<div class="row">
+		{{ this.referenceItem("tag", "if") }}
+		{{ this.referenceItem("filter", "default") }}
+		{{ this.emptyReferenceItem() }}
+		{{ this.referenceItem("test", "odd") }}
+	</div>
+	<div class="row">
+		{{ this.referenceItem("tag", "import") }}
+		{{ this.referenceItem("filter", "format") }}
+		{{ this.emptyReferenceItem() }}
+		{{ this.referenceItem("test", "iterable") }}
+	</div>
+	<div class="row">
+		{{ this.referenceItem("tag", "include") }}
+		{{ this.referenceItem("filter", "json") }}
+		{{ this.emptyReferenceItem() }}
+		{{ this.referenceItem("test", "equalTo") }}
+	</div>
+	<div class="row">
+		{{ this.referenceItem("tag", "macro") }}
+		{{ this.referenceItem("filter", "lower") }}
+		{{ this.emptyReferenceItem() }}
+		{{ this.emptyReferenceItem() }}
+	</div>
+	<div class="row">
+		{{ this.referenceItem("tag", "set") }}
+		{{ this.referenceItem("filter", "number") }}
+		{{ this.emptyReferenceItem() }}
+		{{ this.emptyReferenceItem() }}
+	</div>
+	<div class="row">
+		{{ this.emptyReferenceItem() }}
+		{{ this.referenceItem("filter", "trim") }}
+		{{ this.emptyReferenceItem() }}
+		{{ this.emptyReferenceItem() }}
+	</div>
+	<div class="row">
+		{{ this.emptyReferenceItem() }}
+		{{ this.referenceItem("filter", "upper") }}
+		{{ this.emptyReferenceItem() }}
+		{{ this.emptyReferenceItem() }}
+	</div>
+	<div class="row">
+		{{ this.emptyReferenceItem() }}
+		{{ this.referenceItem("filter", "urlencode") }}
+		{{ this.emptyReferenceItem() }}
+		{{ this.emptyReferenceItem() }}
+	</div>
+	<h3>Operators</h3>
+	<div class="row">
+		{{ this.referenceItem("operator", "in") }}
+	</div>
+	<div class="row">
+		{{ this.referenceItem("operator", "is") }}
+	</div>
+	<div class="row">
+		{{ this.referenceItem("operator", "math", "(+,-,/,%,*)") }}
+	</div>
+	<div class="row">
+		{{ this.referenceItem("operator", "logic", "(and,or,not,())") }}
+	</div>
+	<div class="row">
+		{{ this.referenceItem("operator", "comparisons", "(==,!=,<,>,<=,>=)") }}
+	</div>
+	<div class="row">
+		{{ this.referenceItem("operator", "others", "(|,?:)") }}
+	</div>
 {% endblock content%}
+
+
+
+{# MACROS #}
+
+{% macro referenceItem(type, name) %}
+	<div class="col-md-3"><a href="documentation/{{ type }}/{{ name }}">{{ name }}</a></div>
+{% endmacro %}
+
+{% macro referenceItem(type, name, details) %}
+	<div class="col-md-3"><a href="documentation/{{ type }}/{{ name }}">{{ name }}</a> {{ details }}</div>
+{% endmacro %}
+
+{% macro emptyReferenceItem() %}
+	<div class="col-md-3"></div>
+{% endmacro %}
