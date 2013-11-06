@@ -1,4 +1,4 @@
-{% extends "base" %}
+{% extends 'base' %}
 
 {% block navigation %}
 	{% set activeNav = "Home" %}
@@ -7,9 +7,9 @@
 
 {% block pageheader %}
 	<h1>Pebble</h1> 
-    <p>A modern Java templating engine that goes lightning fast. Easy to learn, easy to read, ready for anything.</p>
+    <p>A modern Java templating engine that goes lightning fast.</p>
     <p>
-		<a class="btn btn-success btn-lg" href="get-started">Get started</a>
+		<button class="btn btn-success btn-lg" href="get-started">Get started</button>
 	</p>
 	<p>
 		Version: <a class="version-number" href="blog">0.0.1-alpha</a>
@@ -17,54 +17,87 @@
 {% endblock pageheader %}
 
 {% block content %}
-	<div class="row">
-		<div class="col-md-8">
-		    <h2>What is it?</h2>
-		    <p>
-		    	<dl class="dl-horizontal">
-		    		<dt>Fast:</dt><dd> Templates are compiled down to byte code for optimal performance.</dd>
-		    		<dt>Flexible:</dt><dd> Pebble can be customized with new tags, filters, functions and much more.</dd>
-		    		<dt>Easy:</dt><dd> Effortless to setup, quick to learn, and easy on the eyes.</dd>
-		    		<dt>Modern:</dt><dd> Inheritance, composition, and reusable elements allow for a modern architecture.</dd>
-		    	</dl>
-		    </p>
-	    </div>
-	    <div class="col-md-4"></div>
-    </div>
 
-    <div class="row">
-		<div class="col-md-6">
-		    <h2>Synopsis</h2>
-		    <p>
-		    	Lorem ipsum dolor sit amet, debet quidam vel cu, exerci ullamcorper ut est. Nec at quod inimicus elaboraret. Sea tale dolores tincidunt no, amet elit deseruisse his in, vim partiendo definiebas at. Nisl reprimique omittantur cum at, eos legendos adolescens consetetur cu, ea per regione intellegat. Est possit argumentum eu, ad mollis abhorreant vix. Vis clita veritus ut, legimus ancillae pri ad. Cu vix alii adipiscing suscipiantur, nam gloriatur reprimique ei.
-		    </p>
-    	</div>
-	    <div class="col-md-6"></div>
-    </div>
+	<div class="pebble-what">
+		<div class="container">
+		    <div class="row">
+				<div class="col-md-6">
+				    <h2>Synopsis</h2>
+				    <p>
+				    	Pebble is a Java templating engine which originally started as a port of Twig. 
+				    	It uses modern paradigms such as inheritance and composition to maximize code reuse, it uses
+				    	a Django inspired syntax for excellent readability, and it
+				    	compiles all templates into Java bytecode for optimal performance. 
+				    </p>
+		    	</div>
+			    <div class="col-md-6">
+<pre class="pebble-code-preview"><code>{{
+'{% extends "base" %}	
+
+{% block navigation %}
+	{% set activeNav = "Home" %}
+	{{ parent() }}
+{% endblock navigation %}' 
+}}</code></pre>
+			    </div>
+		    </div>
+		</div>
+	</div>
+
+    <div class="pebble-features">
+    	<div class="container">
+    	
+    	 	<h2>Features</h2>
     
-    <h2>Highlights</h2>
-    
-    <h4>Expressions</h4>
-    <p>
-    	Lorem ipsum dolor sit amet, debet quidam vel cu, exerci ullamcorper ut est. Nec at quod inimicus elaboraret. Sea tale dolores tincidunt no, amet elit deseruisse his in, vim partiendo definiebas at. Nisl reprimique omittantur cum at, eos legendos adolescens consetetur cu, ea per regione intellegat. Est possit argumentum eu, ad mollis abhorreant vix. Vis clita veritus ut, legimus ancillae pri ad. Cu vix alii adipiscing suscipiantur, nam gloriatur reprimique ei.
-    </p>
-    
-    <h4>Inheritance</h4>
-    <p>
-    	Lorem ipsum dolor sit amet, debet quidam vel cu, exerci ullamcorper ut est. Nec at quod inimicus elaboraret. Sea tale dolores tincidunt no, amet elit deseruisse his in, vim partiendo definiebas at. Nisl reprimique omittantur cum at, eos legendos adolescens consetetur cu, ea per regione intellegat. Est possit argumentum eu, ad mollis abhorreant vix. Vis clita veritus ut, legimus ancillae pri ad. Cu vix alii adipiscing suscipiantur, nam gloriatur reprimique ei.
-    </p>
-    
-    <h4>Composition and Macros</h4>
-    <p>
-    	Lorem ipsum dolor sit amet, debet quidam vel cu, exerci ullamcorper ut est. Nec at quod inimicus elaboraret. Sea tale dolores tincidunt no, amet elit deseruisse his in, vim partiendo definiebas at. Nisl reprimique omittantur cum at, eos legendos adolescens consetetur cu, ea per regione intellegat. Est possit argumentum eu, ad mollis abhorreant vix. Vis clita veritus ut, legimus ancillae pri ad. Cu vix alii adipiscing suscipiantur, nam gloriatur reprimique ei.
-    </p>
-    
-    
-    <h2>Getting Started</h2>
-    <p>
-	    <ul>
-	    	<li><a href="#">Installation</a></li>
-	    	<li><a href="#">Documentation</a></li>
-	    </ul>
-    </p>
+    		<div class="row">
+    			<div class="col-md-4">
+					<h4>Logic & Expressions</h4>
+				    <p>
+				    	Pebble gives you the ability to iterate through collections,
+				    	use if statements, conditional operators, and manipulate variables
+				    	all with a very concise and easy-to-read syntax.
+				    </p>
+    			</div>
+    			<div class="col-md-4">
+					<h4>Inheritance</h4>
+				    <p>
+				    	The most important feature that makes Pebble stand out from
+				    	the crowd is the ability for templates to inherit from each other. Write
+				    	your structure or scaffolding code once, and then extend from that template
+				    	to reuse it over and over again. Create chains of inheritance to maximize 
+				    	this potential.
+				    </p>
+			   </div>
+			   <div class="col-md-4">
+					<h4>Composition & Macros</h4>
+				    <p>
+				    	Import the entire rendered output of one template into another with one simple
+				    	statement. If you want more fine grained control, you can write
+				    	"macros" which are lightweight reusable elements that can be used anywhere.
+				    </p>
+			   </div>
+			</div><!-- end row -->
+			
+			<div class="row pebble-secondary-features">
+				<dl class="dl-horizontal">
+					<dt>Filters & Tests</dt>
+					<dd>There are numerous built in filters that allow you to abbreviate or 
+				    	capitalize text, format dates or numbers, encode json, provide defaults to 
+				    	null values, and much more. Beyond filters there are also "tests"
+				    	to check if your variables are null, even, odd, iterable, etc 
+			    	</dd>
+			    	<dt>Extensibility</dt>
+					<dd>Pebble was built from the ground up with the philosophy that it should 
+						be able to adapt to any project. Create your own tags, filters, tests, 
+						functions, and even operators. 
+			    	</dd>
+					<dt>Documented</dt>
+					<dd>Pebble is fully documented with detailed descriptions of every feature as
+						well as recipes for advanced techniques. 
+			    	</dd>
+				</dl>
+			</div>
+    	</div><!-- end container -->
+    </div><!-- end features -->
+   
 {% endblock content%}
