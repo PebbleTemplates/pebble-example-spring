@@ -28,4 +28,8 @@ dd {margin-bottom:20px;}
 /* HOME PAGE */
 .pebble-what { background: #e4f0f1; padding:60px 0;}
 pre.pebble-code-preview { height:250px; border-radius:125px; font-size:21px; overflow:hidden;padding-left:92px; padding-top:28px;}
+.pebble-features { padding:60px 0;}
+.pebble-primary-features { margin-top:40px; }
+.pebble-primary-features p.primary-feature-icon{ text-align:center; }
+.pebble-primary-features h4 { text-align:center; }
 .pebble-secondary-features {margin-top:100px;}
