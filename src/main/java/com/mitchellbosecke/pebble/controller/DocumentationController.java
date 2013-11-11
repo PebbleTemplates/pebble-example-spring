@@ -16,10 +16,18 @@ public class DocumentationController extends BaseController {
 		return mav;
 	}
 
-	@RequestMapping("/{guideName}")
+	@RequestMapping("/guide/{guideName}")
 	public ModelAndView getGuide(@PathVariable("guideName") String guideName) {
 		ModelAndView mav = getMav();
 		mav.setViewName("documentation/guides/" + guideName);
+		return mav;
+	}
+	
+	@RequestMapping("/{type}")
+	public ModelAndView getComponentTypeReference(@PathVariable("type") String type) {
+		ModelAndView mav = getMav();
+		StringBuilder templateName = new StringBuilder("documentation/reference/");
+		mav.setViewName(templateName.append(type).append("/").append(type).toString());
 		return mav;
 	}
 

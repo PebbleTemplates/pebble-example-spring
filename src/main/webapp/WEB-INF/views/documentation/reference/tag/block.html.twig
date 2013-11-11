@@ -8,6 +8,35 @@
 {% block componentName %}Block{% endblock componentName %}
 
 {% block componentDetails %}
-	<p>Block details go here.</p>
+	<p>
+		The <code>block</code> tag performs two functions: it declares a chunk of content
+		that can be overriden by a child template AND simultaneously overrides the content
+		of the parent template's block of the same name (if it exists). See the 
+		<code><a href="extends">extends</a></code> tag for a more detailed explanation on how 
+		to implement template inheritance.
+	</p>
+		
+	<p>
+		The contents of a block will only be used if a child template does not override
+		it. It is often useful to define empty blocks as placeholders for content to be
+		provided by a child template.
+	</p>
+	
+	<p>	The	<code>block<code> tag is immediately followed by the name of the block. This name will be the same
+		name the child template uses to refer to the parent template's block. The <code>endblock</code>
+		tag can optionally contain the block's name for readability.
+	</p>
+		
+	<p>
+		In the following example we create a block with the name 'header':
+		<pre><code>{{ 
+'
+<% block header %>
+	<h1> Introduction </h1>
+<% endblock header %>
+'
+		| trim | escape }}</code></pre>
+	</p>
+
 {% endblock componentDetails %}
 	

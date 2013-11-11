@@ -6,11 +6,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(value="/home")
+@RequestMapping(value="/")
 public class HomeController extends BaseController{
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public ModelAndView getView() {
+	@RequestMapping
+	public String getRoot(){
+		return "redirect:home";
+	}
+	
+	@RequestMapping(value="/home", method=RequestMethod.GET)
+	public ModelAndView getHome() {
 		ModelAndView mav = getMav();
 		mav.setViewName("home");
 		return mav;
