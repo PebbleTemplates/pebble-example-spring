@@ -4,11 +4,12 @@
 	<div class="container">
 	
 		<ol class="breadcrumb">
-			{% block breadcrumb %}
-			{% endblock breadcrumb %}
+			<li><a href="/{{ contextRoot }}/documentation">Documentation</a></li>
+			<li><a href="/{{ contextRoot }}/documentation/{{ componentType }}">{{ componentType | capitalize }}s</a></li>
+			<li class="active">{{ componentName }}</li>
 		</ol>
 		
-		<h2>{% block componentName %}{% endblock componentName %} </h2>
+		<h2><code>{{ componentName }}</code></h2>
 		
 		{% block componentDetails %}{% endblock componentDetails %}
 		

@@ -1,0 +1,83 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>extends</code> tag is used to declare a parent template. It should be the
+		very first tag used in a child template. A child template can only extend up to one 
+		parent template.
+	</p>
+		
+	<p>
+		The best way to understand template inheritance is to study an example. Let us look
+		at a parent template called "base.peb":
+		<pre><code>{{ '
+<html>
+	<head>
+		<title>{% block title %} {% endblock %}</title>
+	</head>
+	<body>
+		<div id="content">
+			{% block content %} 
+				Default content goes here.
+			{% endblock %}
+		</div>
+		
+		<div id="footer">
+			{% block footer %}
+				Default footer content
+			{% endblock %}
+		</div>
+	</body>
+</html>
+' | trim | escape }}</code></pre>
+	</p>
+	
+	<p>
+		And now let's look at "home.peb" which extends "base.peb":
+		<pre><code>{{ '
+{% extends "base.peb" %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+	Home page content.
+{% endblock %}
+
+' | trim | escape }}</code></pre>
+	</p>
+	
+	<p>
+		And finally let's look at the resulting output of rendering "home.peb":
+		<pre><code>{{ '
+<html>
+	<head>
+		<title> Home </title>
+	</head>
+	<body>
+		<div id="content">
+			Home page content will override the default content.
+		</div>
+		
+		<div id="footer">
+			Default footer content
+		</div>
+	</body>
+</html>
+
+' | trim | escape }}</code></pre>
+	</p>
+
+	<p>
+		To summarize, parent templates originally define blocks and child templates can optionally override the 
+		content of the parent blocks. The parent template can contain contain outside of the blocks but a child
+		template must have all of it's content residing within blocks. 
+	</p>
+	
+	<p>
+		A template can extend another template which already extends a third template; i.e. there is no limit
+		to how long of an inheritance chain that you can create. A lot of potential comes from this fact because
+		you can create a hierarchy of templates to minimize how much content you have to write on the lower levels.
+	</p>
+	
+{% endblock componentDetails %}
+	

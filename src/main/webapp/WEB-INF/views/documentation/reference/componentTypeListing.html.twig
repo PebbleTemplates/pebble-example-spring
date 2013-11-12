@@ -1,0 +1,23 @@
+{% extends "documentation" %}
+
+{% block content %}
+	<div class="container">
+	
+		<ol class="breadcrumb">
+			<li><a href="/{{ contextRoot }}/documentation">Documentation</a></li>
+			<li class="active">{{ componentType | capitalize }}s</li>
+		</ol>
+		
+		<h2>{{ componentType | capitalize }}s</h2>
+		
+		{% for componentName in componentList %}
+			{{ _self.listItem(componentType, componentName) }}
+		{% endfor %}
+		
+	</div>
+	
+{% endblock content%}
+
+{% macro listItem(type, name) %}
+	<li><a href="{{ type }}/{{ name }}">{{ name }}</a></li>
+{% endmacro %}
