@@ -1,0 +1,22 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>escape</code> filter will turn special characters into HTML character references. 
+	</p>
+	
+	<p>
+		<pre><code>{{ 
+'
+{{ "<div>" | escape }}
+
+{#
+	output: "&lt;div&gt;"
+#}
+'
+		| trim | escape }}</code></pre>
+	</p>
+
+
+{% endblock componentDetails %}
+	

@@ -1,0 +1,24 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>block</code> function is used to render the contents of a block in a location other
+		than where the block was first declared. It is not to be confused with the 
+		<code><a href="../tag/block">block</a></code> tag which is used to declare blocks.  
+	</p>
+	
+	<p>
+		The following example will render the contents of the "post" block twice; once where it
+		was declared and again using the <code>block</code> function.
+		<pre><code>{{ 
+'
+{% block "post" %} default contents {% endblock %}
+
+{{ block("post") }}
+'
+		| trim | escape }}</code></pre>
+	</p>
+
+
+{% endblock componentDetails %}
+	

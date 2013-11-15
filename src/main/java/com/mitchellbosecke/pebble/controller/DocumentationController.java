@@ -87,6 +87,7 @@ public class DocumentationController extends BaseController {
 		list.add("capitalize");
 		list.add("date");
 		list.add("default");
+		list.add("escape");
 		list.add("format");
 		list.add("json");
 		list.add("lower");
@@ -111,7 +112,6 @@ public class DocumentationController extends BaseController {
 		list.add("null");
 		list.add("odd");
 		list.add("iterable");
-		list.add("equalTo");
 		return list;
 	}
 

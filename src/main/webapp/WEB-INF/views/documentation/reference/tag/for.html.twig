@@ -2,7 +2,35 @@
 
 {% block componentDetails %}
 	<p>
-		The <code>for</code> tag
+		The <code>for</code> tag is used to iterate through any object that implements the
+		<code>java.lang.Iterable</code> interface.
+	</p>
+	
+	<p>
+		<pre><code>{{ 
+'
+{% for user in users %}
+	{{ user.name }} lives in {{ user.city }}.
+{% endblock header %}
+'
+		| trim | escape }}</code></pre>
+	</p>
+	
+	<p>
+		While inside of the loop, Pebble provides a couple of special variables to help you out:
+		
+		<ul>
+			<li>loop.index - a zero-based index that increments with every iteration.</li>
+			<li>loop.length - the size of the object we are iterating over.</li>
+		</ul>
+		
+				<pre><code>{{ 
+'
+{% for user in users %}
+	{{ loop.index }} - {{ user.id }}
+{% endfor %}
+'
+		| trim | escape }}</code></pre>
 	</p>
 
 {% endblock componentDetails %}

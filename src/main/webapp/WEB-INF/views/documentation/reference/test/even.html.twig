@@ -1,0 +1,19 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>even</code> test checks if an integer is even.
+	</p>
+
+	<p>
+		<pre><code>{{ 
+'
+{% if 2 is even %}
+	...
+{% endif %}
+'
+		| trim | escape }}</code></pre>
+	</p>
+
+{% endblock componentDetails %}
+	

@@ -1,0 +1,28 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>json</code> filter will encode an object as json using Jackson.
+		 
+	</p>
+	
+	<p>
+		<pre><code>{{ 
+'
+{{ user | json }}
+
+{#
+	example output:
+	
+	{
+		name: "Mitchell",
+		project: "Pebble"
+	}
+#}
+'
+		| trim | escape }}</code></pre>
+	</p>
+
+
+{% endblock componentDetails %}
+	

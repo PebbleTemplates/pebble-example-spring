@@ -1,0 +1,19 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>null</code> test checks if a variable is null.
+	</p>
+
+	<p>
+		<pre><code>{{ 
+'
+{% if user.email is null %}
+	...
+{% endif %}
+'
+		| trim | escape }}</code></pre>
+	</p>
+
+{% endblock componentDetails %}
+	

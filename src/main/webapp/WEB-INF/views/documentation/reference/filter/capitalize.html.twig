@@ -1,0 +1,18 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>capitalize</code> filter will capitalize the first letter of the string.
+		
+		<pre><code>{{ 
+'
+{{ "article title" | capitalize }}
+
+{# output: Article title #}
+'
+		| trim | escape }}</code></pre>
+	</p>
+
+
+{% endblock componentDetails %}
+	

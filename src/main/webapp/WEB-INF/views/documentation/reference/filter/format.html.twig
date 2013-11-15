@@ -1,0 +1,19 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>format</code> filter is a wrapper around <code>java.lang.String.format(String format, Object... args)</code>.
+		 
+	</p>
+	
+	<p>
+		<pre><code>{{ 
+'
+{{ "%s@domain.com" | format(user.username) }}
+'
+		| trim | escape }}</code></pre>
+	</p>
+
+
+{% endblock componentDetails %}
+	

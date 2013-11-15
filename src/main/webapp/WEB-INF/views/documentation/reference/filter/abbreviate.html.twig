@@ -1,0 +1,19 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>abbrevate</code> filter will abreviate a string using ellipsis. It takes one argument which is the 
+		max width of the desired output including the ellipsis.
+		
+		<pre><code>{{ 
+'
+{{ "this is a long sentence." | abbreviate(7) }}
+
+{# will output "this..." #}
+'
+		| trim | escape }}</code></pre>
+	</p>
+
+
+{% endblock componentDetails %}
+	
