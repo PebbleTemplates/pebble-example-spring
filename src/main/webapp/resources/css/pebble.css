@@ -17,13 +17,17 @@ a.version-number{font-size:14px;}
 
 .breadcrumb {margin-top:15px;}
 
+.content {min-height:400px;}
 .pebble-footer{ height:300px; background:#042131; margin-top:50px;}
+
+.adsbygoogle.square-ad { display:inline-block; width:250px; height:250px; }
 
 /* TYPOGRAPHY */
 h1,h2,h3,h4,h5,h6{ color: #3098B9;}
 p { line-height:1.6em;}
 a { color:#008DC4; text-decoration:underline;}
 dd {margin-bottom:20px;}
+a.btn { text-decoration:none;}
 
 /* HOME PAGE */
 .pebble-what { background: #e4f0f1; padding:60px 0;}

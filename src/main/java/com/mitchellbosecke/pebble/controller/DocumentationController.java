@@ -51,6 +51,9 @@ public class DocumentationController extends BaseController {
 			case "test":
 				componentList = getTestList();
 				break;
+			case "operator":
+				componentList = getOperatorList();
+				break;
 
 		}
 		mav.addObject("componentList", componentList);
@@ -112,6 +115,16 @@ public class DocumentationController extends BaseController {
 		list.add("null");
 		list.add("odd");
 		list.add("iterable");
+		return list;
+	}
+	
+	private List<String> getOperatorList() {
+		List<String> list = new ArrayList<>();
+		list.add("is");
+		list.add("math");
+		list.add("logic");
+		list.add("comparisons");
+		list.add("others");
 		return list;
 	}
 

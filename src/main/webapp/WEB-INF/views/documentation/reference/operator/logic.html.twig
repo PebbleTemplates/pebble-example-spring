@@ -1,0 +1,50 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>and</code> operator and the <code>or</code> operator are available
+		to join boolean expressions. 
+	</p>
+
+	<p>
+		<pre><code>{{ 
+'
+{% if 2 is even and 3 is odd %}
+	...
+{% endif %}
+'
+		| trim | escape }}</code></pre>
+	</p>
+	
+	<p>
+		The <code>not</code> operator is available to negate a boolean expression.
+	</p>
+	
+	<p>
+		<pre><code>{{ 
+'
+{% if 3 is not even %}
+	...
+{% endif %}
+'
+		| trim | escape }}</code></pre>
+	</p>
+	
+	<p>
+		Parenthesis can be used to group expressions to ensure a desired precedence.
+	</p>
+	
+	<p>
+		<pre><code>{{ 
+'
+{% if (3 is not even) and (2 is odd or 3 is even) %}
+	...
+{% endif %}
+'
+		| trim | escape }}</code></pre>
+	</p>
+	
+	
+
+{% endblock componentDetails %}
+	
