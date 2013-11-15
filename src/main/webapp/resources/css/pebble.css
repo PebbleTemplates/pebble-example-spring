@@ -15,6 +15,8 @@ a.version-number{font-size:14px;}
 .pebble-nav .navbar-nav>li.active a:hover {color:#fff; background-color:#022941;}
 .pebble-nav .navbar-header>.navbar-brand { color:#fff; text-decoration:none; }
 
+.pebble-nav .github-button{ margin-top:11px; }
+
 .breadcrumb {margin-top:15px;}
 
 .content {min-height:400px;}

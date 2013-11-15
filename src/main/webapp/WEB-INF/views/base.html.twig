@@ -31,6 +31,10 @@
 							{{ _self.navItem("Blog", "blog", "Blog" is equalTo(activeNav) ) }}
 						{% endblock navigation %}
 				    </ul>
+				    <div class="pull-right github-button">
+				    	<iframe src="http://ghbtns.com/github-btn.html?user=mbosecke&repo=pebble&type=watch&count=true&size=large"
+  					allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
+				    </div>
 				</div>
     		</div><!-- end nav container -->
     	</div><!-- end navbar -->
@@ -47,14 +51,13 @@
         	{% block footer %}{% endblock footer %}
         </div>
         
+        
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <script src="//code.jquery.com/jquery.js"></script>
         <script src="/{{ contextRoot }}/resources/js/highlight.pack.js"></script>
         <script src="/{{ contextRoot }}/resources/js/bootstrap.min.js"></script>
         <script src="/{{ contextRoot }}/resources/js/pebble.js"></script>
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <script>
-			(adsbygoogle = window.adsbygoogle || []).push({});
-		</script>
+
     </body>
 </html>
 
