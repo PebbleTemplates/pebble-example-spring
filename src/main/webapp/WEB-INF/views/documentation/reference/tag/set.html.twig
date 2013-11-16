@@ -1,0 +1,21 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>set</code> tag allows you to define a variable in the current context,
+		whether it currently exists or not. 
+	</p>
+	
+	<p>		
+		<pre><code>{{ 
+'
+{% set header = "Test Page" %}
+
+{# displays "Test Page" #}
+{{ header }}
+'
+		| trim | escape }}</code></pre>
+	</p>
+
+{% endblock componentDetails %}
+	

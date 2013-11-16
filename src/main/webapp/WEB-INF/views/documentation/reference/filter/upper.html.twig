@@ -1,0 +1,23 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>upper</code> filter makes an entire string upper case.
+		 
+	</p>
+	
+	<p>
+		<pre><code>{{ 
+'
+{{ "this is a quiet sentence." | upper }}
+
+{#
+	output: "THIS IS A QUIET SENTENCE"
+#}
+'
+		| trim | escape }}</code></pre>
+	</p>
+
+
+{% endblock componentDetails %}
+	

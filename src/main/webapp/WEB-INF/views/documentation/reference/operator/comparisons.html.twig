@@ -1,0 +1,22 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		Pebble provides the following comparison operators: ==, !=, <, >, <=, >=. 
+		These operators are ultimately compiled into their Java equivalents and therefore
+		behave the same way.
+	</p>
+
+	<p>
+		<pre><code>{{ 
+'
+{% if 2 < 10 %}
+	...
+{% endif %}
+'
+		| trim | escape }}</code></pre>
+	</p>
+	
+
+{% endblock componentDetails %}
+	

@@ -1,16 +1,24 @@
 {% extends "documentation" %}
 
 {% block content %}
-	<div class="container">
+	<div class="container content">
 	
 		<ol class="breadcrumb">
-			{% block breadcrumb %}
-			{% endblock breadcrumb %}
+			<li><a href="/{{ contextRoot }}/documentation">Documentation</a></li>
+			<li><a href="/{{ contextRoot }}/documentation/{{ componentType }}">{{ componentType | capitalize }}s</a></li>
+			<li class="active">{{ componentName }}</li>
 		</ol>
 		
-		<h2>{% block componentName %}{% endblock componentName %} </h2>
+		<h2><code>{{ componentName }}</code></h2>
 		
-		{% block componentDetails %}{% endblock componentDetails %}
+		<div class="row">
+			<div class="col-md-9">
+				{% block componentDetails %}{% endblock componentDetails %}
+			</div>
+			<div class="col-md-3">
+				<ins class="adsbygoogle square-ad" data-ad-client="ca-pub-5218270417071747" data-ad-slot="6800492371"></ins>
+			</div>
+		</div>
 		
 	</div>
 	

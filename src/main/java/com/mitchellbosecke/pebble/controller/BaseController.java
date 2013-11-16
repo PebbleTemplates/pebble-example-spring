@@ -9,7 +9,7 @@ public class BaseController {
 	 */
 	protected ModelAndView getMav(){		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("contextRoot", "pebble-web");
+		mav.addObject("contextRoot", "pebble");
 		return mav;
 	}
 }

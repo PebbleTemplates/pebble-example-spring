@@ -1,0 +1,22 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>import</code> tag allows you to use <a href="macro">macros</a> defined in another template.
+	</p>
+	
+	
+	<p>
+		When you import another template you assign it to a local variable.
+		
+		<pre><code>{{ 
+'
+{% import "form_util" as form %}
+
+{{ form.input("text", "name", "Mitchell") }}
+'
+		| trim | escape }}</code></pre>
+	</p>
+
+{% endblock componentDetails %}
+	

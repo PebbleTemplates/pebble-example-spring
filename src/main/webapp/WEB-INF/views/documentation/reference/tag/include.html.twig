@@ -1,0 +1,23 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>include</code> tag allows you to insert the rendered output of another template
+		directly into the current template. The included template will use the same variables
+		as the current template.
+	</p>
+	
+	
+	<p>		
+		<pre><code>{{ 
+'
+Top Content
+{% include "advertisement" %}
+Bottom Content
+{% include "footer" %}
+'
+		| trim | escape }}</code></pre>
+	</p>
+
+{% endblock componentDetails %}
+	

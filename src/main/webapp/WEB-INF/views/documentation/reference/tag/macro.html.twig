@@ -1,0 +1,46 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>macro</code> tag allows you to create a chunk of reusable and dynamic 
+		content. The macro can be called multiple times in the current template or even
+		from another template with the help of the <code><a href="import">import</a></code> 
+		tag.
+	</p>
+	
+	<p>
+		It doesn't matter whether the macro is defined at the top or the bottom ofthe current
+		template or whether it's before or after you call it. Let's first look at how to
+		define a new macro:
+		
+		<pre><code>{{ 
+'
+{% macro input(type, name, value) %}
+	<input type="{{ type }}" name="{{ name }}" value="{{ value }}" />
+{% endmacro %}
+'
+		| trim | escape }}</code></pre>
+	</p>
+	
+	<p>
+		And now the macro can be called numerous times throughout the template. If the macro 
+		resides in the current template, use the special <code>_self</code>	variable to call it.
+		<pre><code>{{ 
+'
+	{{ _self.input("text", "name", "Mitchell") }}
+'
+		| trim | escape }}</code></pre>
+		
+		If the macro resides in another template, use the <code><a href="import">import</a></code>
+		tag first.
+		<pre><code>{{ 
+'
+{% import "form_util" as form %}
+{{ form.input("text", "name", "Mitchell") }}
+'
+		| trim | escape }}</code></pre>
+		
+	</p>
+
+{% endblock componentDetails %}
+	

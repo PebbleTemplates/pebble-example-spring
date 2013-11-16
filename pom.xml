@@ -9,18 +9,23 @@
 	<artifactId>pebble-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	
+		
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	
 	<build>
 		<finalName>pebble-web</finalName>
-		
 		<plugins>
-            <plugin>
-                <groupId>org.glassfish.maven.plugin</groupId>
-                <artifactId>maven-glassfish-plugin</artifactId>
-                <version>2.1</version>
-            </plugin>
-        </plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 	
 	<dependencies>
@@ -47,11 +52,4 @@
 		</dependency>
 	</dependencies>
 	
-	<pluginRepositories>
-        <pluginRepository>
-            <id>maven.java.net</id>
-            <name>Java.net Maven2 Repository</name>
-            <url>http://download.java.net/maven/2</url>
-        </pluginRepository>
-    </pluginRepositories>
 </project>

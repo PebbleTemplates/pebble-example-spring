@@ -1,0 +1,30 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>|</code> operator is used to apply a <a href="../filter">filter</a> to a variable.
+	</p>
+
+	<p>
+		<pre><code>{{ 
+'
+{{ user.name | capitalize }}
+'
+		| trim | escape }}</code></pre>
+	</p>
+	
+	<p>
+		Pebble supports the use of the conditional operator (often named the ternary operator).
+	</p>
+	
+	<p>
+		<pre><code>{{ 
+'
+{{ foo == null ? bar : baz }}
+'
+		| trim | escape }}</code></pre>
+	</p>
+	
+
+{% endblock componentDetails %}
+	

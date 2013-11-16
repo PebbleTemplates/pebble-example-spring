@@ -1,0 +1,23 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>lower</code> filter makes an entire string lower case.
+		 
+	</p>
+	
+	<p>
+		<pre><code>{{ 
+'
+{{ "THIS IS A LOUD SENTENCE" | lower }}
+
+{#
+	output: "this is a loud sentence"
+#}
+'
+		| trim | escape }}</code></pre>
+	</p>
+
+
+{% endblock componentDetails %}
+	

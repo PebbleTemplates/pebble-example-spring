@@ -1,0 +1,21 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>iterable</code> test checks if a variable implements <code>java.lang.Iterable</code>.
+	</p>
+
+	<p>
+		<pre><code>{{ 
+'
+{% if users is iterable %}
+	{% for user in users %}
+		...
+	{% endfor %}
+{% endif %}
+'
+		| trim | escape }}</code></pre>
+	</p>
+
+{% endblock componentDetails %}
+	
