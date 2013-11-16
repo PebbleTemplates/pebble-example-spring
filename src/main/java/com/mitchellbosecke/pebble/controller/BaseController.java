@@ -10,6 +10,7 @@ public class BaseController {
 	protected ModelAndView getMav(){		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("contextRoot", "pebble");
+		mav.addObject("currentVersion", "0.0.2-alpha");
 		return mav;
 	}
 }

@@ -52,4 +52,10 @@
 		</dependency>
 	</dependencies>
 	
+	<scm>
+		<connection>scm:git:git://github.com/mbosecke/pebble-website.git</connection>
+		<developerConnection>scm:git:git@github.com:mbosecke/pebble-website.git</developerConnection>
+		<url>http://github.com/mbosecke/pebble-website</url>
+	</scm>
+	
 </project>
