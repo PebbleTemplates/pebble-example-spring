@@ -9,7 +9,10 @@
 
   
 // google ads
-(adsbygoogle = window.adsbygoogle || []).push({});
+try{
+	(adsbygoogle = window.adsbygoogle || []).push({});
+}catch(err){}
+
 
 
 // document ready
