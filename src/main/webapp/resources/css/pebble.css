@@ -20,7 +20,8 @@ a.version-number{font-size:14px;}
 .breadcrumb {margin-top:15px;}
 
 .content {min-height:400px;}
-.pebble-footer{ height:300px; background:#042131; margin-top:50px;}
+.pebble-footer{ height:300px; background:#042131; margin-top:50px; color:#fff; padding:30px;}
+.pebble-footer a,.pebble-footer a:hover{color:#fff;}
 
 .adsbygoogle.square-ad { display:inline-block; width:250px; height:250px; }
 
