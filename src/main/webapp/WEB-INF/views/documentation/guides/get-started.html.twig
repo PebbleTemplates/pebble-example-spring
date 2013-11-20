@@ -1,0 +1,57 @@
+{% extends "base" %}
+
+{% block navigation %}
+	{% set activeNav = "Get Started" %}
+	{{ parent() }}
+{% endblock navigation %}
+
+{% block pageheader %}
+	<h1>Get Started</h1> 
+    <p>A sleek modern java templating engine.</p>
+{% endblock pageheader %}
+
+{% block content %}
+	<div class="container content">
+		
+		<h2>Installation</h2>
+		<p>
+			Pebble is hosted in the Maven Central Repository. Simply add the following dependency into your <code>pom.xml</code>
+			file:
+		</p>
+		<p>
+			<pre>{{ '
+<dependency>
+	<groupId>com.mitchellbosecke</groupId>
+	<artifactId>pebble</artifact>
+	<version>' | trim | escape }} {{ currentVersion }} {{ '</version>
+</dependency>' | trim | escape }}</pre>
+		</p>
+		<p>
+			If you are integrating Pebble with Spring MVC, make sure to include the pebble-spring3 adapter as well.
+			This will provide the necessary <code>ViewResolver</code> and <code>View</code> classes.
+		</p>
+		<p>
+			<pre>{{ '
+<dependency>
+	<groupId>com.mitchellbosecke</groupId>
+	<artifactId>pebble-spring3</artifact>
+	<version>' | trim | escape }} {{ currentPebbleSpringVersion }} {{ '</version>
+</dependency>' | trim | escape }}</pre>
+		</p>
+		
+		<h2>Configuration</h2>
+		
+		<ul class="nav nav-tabs">
+			<li><a href="#spring" data-toggle="tab">Java + Spring</a></li>
+			<li><a href="#java" data-toggle="tab">Java</a></li>
+		</ul>  
+		<div class="tab-content">
+  			<div class="tab-pane active" id="spring">
+  				<p>How to configure when using spring mvc...</p>
+  			</div>
+  			<div class="tab-pane" id="java">
+  				<p>How to configure when using just Java...</p>
+			</div>
+		</div>
+	</div>
+{% endblock content%}
