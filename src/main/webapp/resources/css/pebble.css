@@ -30,7 +30,7 @@ h1,h2,h3,h4,h5,h6{ color: #3098B9;}
 p { line-height:1.6em;}
 a { color:#008DC4; text-decoration:underline;}
 dd {margin-bottom:20px;}
-a.btn { text-decoration:none;}
+a.btn, .nav-tabs>li>a { text-decoration:none;}
 
 /* HOME PAGE */
 .pebble-what { background: #e4f0f1; padding:60px 0;}

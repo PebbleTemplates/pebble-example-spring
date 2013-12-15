@@ -42,16 +42,92 @@
 		<h2>Configuration</h2>
 		
 		<ul class="nav nav-tabs">
-			<li><a href="#spring" data-toggle="tab">Java + Spring</a></li>
+			<li class="active"><a href="#spring" data-toggle="tab">Java + Spring MVC</a></li>
 			<li><a href="#java" data-toggle="tab">Java</a></li>
 		</ul>  
 		<div class="tab-content">
   			<div class="tab-pane active" id="spring">
-  				<p>How to configure when using spring mvc...</p>
+  				<p>
+  					First and foremost, make sure your templates are on the classpath (ex. /WEB-INF/templates/).
+  					Then simply define a <code>PebbleEngine</code> bean and a <code>PebbleViewResolver</code> in 
+  					your servlet config.
+  					<pre class="xml">{{ '
+
+<bean id="pebbleEngine" class="com.mitchellbosecke.pebble.PebbleEngine">
+	<property name="cacheTemplates" value="true" />
+	<property name="strictVariables" value="false" />
+</bean>
+
+<bean id="viewResolver" class="com.mitchellbosecke.pebble.spring.PebbleViewResolver">
+	<property name="prefix" value="\WEB-INF\views\" />
+	<property name="suffix" value=".html.peb" />
+	<property name="templateLoader">
+		<bean class="com.mitchellbosecke.pebble.spring.PebbleTemplateLoader" />
+	</property>
+	<property name="pebbleEngine" ref="pebbleEngine" />
+</bean>		
+				' | trim | escape }}</pre> 
+				</p>
+				<p>
+					Now the methods in your <code>@Controller</code> annotated classes
+					can simply return the name of the template as you normally would
+					if using JSPs. You can exclude the template file extension if you
+					set it as the "suffix" property of the <code>PebbleViewResolver</code>.
+  				</p>
   			</div>
   			<div class="tab-pane" id="java">
-  				<p>How to configure when using just Java...</p>
+  				<p>
+  					You will need to create two objects, a Loader which will find and 
+  					read your templates, and a PebbleEngine which will compile and render
+  					your templates. Pebble comes with a default loader but you can feel
+  					free to implement <code>com.mitchellbosecke.pebble.loader.Loader</code>
+  					yourself if you wish.
+  					
+  					<pre class="java">{{ '
+
+Loader loader = new PebbleDefaultLoader();
+PebbleEngine engine = new PebbleEngine(loader);
+
+PebbleTemplate compiledTemplate = engine.loadTemplate("templateName");
+
+Map<String, Object> context = new HashMap<>();
+String output = compiledTemplate.render(context);
+				' | trim | escape }}</pre> 
+				</p>
+				
+				<p>
+					The <code>PebbleDefaultLoader</code> class will use multiple techniques to find
+					your templates:
+					<ul>
+						<li><code>Thread.currentThread().getContextClassLoader().getResourceAsStream(...)</code></li>
+						<li><code>PebbleDefaultLoader.class.getClassLoader().getResourceAsStream(...)</code></li>
+						<li><code>file = new File(...) && file.exists()</code></li>
+					</ul>
+				</p>
 			</div>
 		</div>
+		
+		
+		<h2>Settings</h2>
+		<p>
+			<dl class="dl-horizontal">
+				<dt>cacheTemplates</dt>
+				<dd>
+					If set to true, Pebble will only compile a template to bytecode the first time it is used 
+					and then reuse that compiled class for subsequent calls. It does not cache the final 
+					rendered output which is dependent on context map that you provide the template.
+					<br> 
+					Default: <strong>true</strong> 
+				</dd>
+				<dt>strictVariables</dt>
+				<dd>
+					If set to true, Pebble will throw an exception if you try to access a variable or attribute
+					that does not exist. If set to false, Pebble will treat non-existing variables as null.
+					<br>
+					Default: <strong>false</strong>
+			</dl>
+		</p>
+		
+		<a class="btn btn-success btn-lg" href="basic-usage">Basic Usage <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
 	</div>
 {% endblock content%}
