@@ -2,7 +2,70 @@
 
 {% block content %}
 	<div class="container content">
-		<h2>Basic Usage</h2>
-		<p>Basic usage details go here.</p>
+		<h2>Overview</h2>
+		<p>A Pebble template is a simple text file that consists of the Pebble syntax. Pebble
+		templates can be used to generate any sort of text-based output, ex. HTML.
+		</p>
+		
+		<h2>Syntax Reference</h2>
+		<p>There are only two main delimiters used within a Pebble template: 
+		<code>{{'{{ ... }}'}}</code> and <code>{{'{% ... %}'}}</code>. The first set of delimiters
+		will output the result of an expression. That expression can simply be the name of a variable or
+		it can be much more complex. The second set of delimiters is used to change the control
+		flow of the template; it can contain an if-statement, define a parent template, define a new block, etc. </p>
+		
+		<h2>Variables</h2>
+		<p>When a template is rendered, it is provided with a bunch of variables to play around with. You can use the dot (.) notation to access fields of a variable. </p>
+		<p><pre>{{ '
+{{ foo.bar }}' | trim | escape }}</pre>
+		</p>
+		<p>If Pebble's <code>strictVariables</code> setting is set to <code>true</code> then an exception will be thrown when
+		attempting to access a variable that does not exist, otherwise you will get back a null value.</p>
+		<p> Behind the scenes <code>foo.bar</code> will attempt the following techniques to 
+		attempt to access the <code>bar</code> field of the <code>foo</code> variable:
+			<ul>
+				<li>If <code>foo</code> is a <code>Map</code>, use the <code>get(String name)</code> method.</li>
+				<li>Check if <code>bar</code> is a public property of <code>foo</code>.</li>
+				<li>Check if <code>bar()</code> is a public method of <code>foo</code>.</li>
+				<li>Check if <code>getBar()</code> is a public method of <code>foo</code>.</li>
+				<li>Check if <code>isBar()</code> is a public method of <code>foo</code>.</li>
+			</ul>
+		
+		<h2>Filters</h2>
+		<p>Variables can be modified with the use of filters. Filters are separated from the variable
+		using a pipe symbol (<code>|</code>) and may have optional arguments in parentheses. Multiple filters can 
+		be chained. The output of one filter is applied to the next.</p>
+		<p>The following example will escape all HTML characters from <code>foo</code> and then uppercase the entire output:
+		<pre>{{ '
+{{ foo | escape | upper }}' | trim | escape }}</pre>
+		</p>
+		<p>Filters that accept arguments have parentheses around the arguments. This example will format a decimal number:
+		<pre>{{ '
+{{ 3.141592653 | number("#.##") }}' | trim | escape }}</pre>
+		</p>
+		
+		
+		<h2>Functions</h2>
+		<p>Functions</p>
+		
+		<h2>Control Structure</h2>
+		<p>Control Structure</p>
+		
+		<h2>Comments</h2>
+		<p>Comments</p>
+		
+		<h2>Including other Templates</h2>
+		<p>Including other Templates</p>
+		
+		<h2>Template Inheritance</h2>
+		<p>Template Inheritance</p>
+		
+		<h2>Macros</h2>
+		<p>Macros</p>
+		
+		<h2>Expressions</h2>
+		<p>Expressions</p>
+		
+		
 	</div>
 {% endblock content%}
