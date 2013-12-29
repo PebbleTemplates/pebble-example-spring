@@ -43,29 +43,195 @@
 		<pre>{{ '
 {{ 3.141592653 | number("#.##") }}' | trim | escape }}</pre>
 		</p>
+		<p>Go to the <a href="../filter">filters</a> page for more information.</p>
 		
 		
 		<h2>Functions</h2>
-		<p>Functions</p>
+		<p>Functions return some sort of variable which can be used in an expression or immediately rendered to the template's
+		output. They are called by their named followed by parentheses (<code>()</code>).
+		<pre>{{ '
+{{ parent() }}' | trim | escape }}</pre></p>
+		<p>Go to the <a href="../function">functions</a> page for more information.</p>
 		
 		<h2>Control Structure</h2>
-		<p>Control Structure</p>
+		<p>Pebble provides several tags to control the flow of your template, two of the main ones being 
+		the <code><a href="../tag/for">for</a></code> loop, and <code><a href="../tag/if">if</a></code> statements.
+		<pre>{{ '
+{% for article in articles %}
+	<h2>{{ article.title }}</h2>
+	<p>{{ article.content }}</p>
+{% endfor %}' | trim | escape }}</pre>
+		<pre>{{ '
+{% if articles.length > 0 %}
+	{% for article in articles %}
+		<h2>{{ article.title }}</h2>
+		<p>{{ article.content }}</p>
+	{% endfor %}
+{% endfor %}' | trim | escape }}</pre>
+		</p>
+		<p>Go to the <a href="../tag">tags</a> page for more information.</p>
 		
 		<h2>Comments</h2>
-		<p>Comments</p>
+		<p>You can comment out any part of the template using the <code>{{'{# ... #}'}}</code> delimiters. 
+		These comments will not appear in the rendered output.</p>
+		<pre>{{ '
+{# THIS IS A COMMENT #}
+{% for article in articles %}
+	<h2>{{ article.title }}</h2>
+	<p>{{ article.content }}</p>
+{% endfor %}' | trim | escape }}</pre>
 		
 		<h2>Including other Templates</h2>
-		<p>Including other Templates</p>
+		<p>The <code><a href="../tag/include">include</a></code> tag is used to include the 
+		rendered output of one template into another.</p>
+		<pre>{{ 
+'
+Top Content
+{% include "advertisement" %}
+Bottom Content
+{% include "footer" %}
+'
+		| trim | escape }}</pre>
 		
 		<h2>Template Inheritance</h2>
-		<p>Template Inheritance</p>
+		<p>Template inheritance is the most powerful feature of Pebble. It allows you to build a 
+		base template that contains all the common elements of your site and defines <strong>blocks</strong>
+		that child templates can override.</p>
+		<p>First let us look at an example of a base template:</p>
+		<pre>{{ '
+<html>
+<head>
+	<title>{% block title %}My Website{% endblock %}</title>
+</head>
+<body>
+	<div id="content">{% block content %}{% endblock %}</div>
+	<div id="footer">
+		{% block footer %}
+			Copyright 2013
+		{% endblock %}
+	</div>
+</body>
+</html>
+' | trim | escape }}</pre>
+		<p>In the above example, we have used the <code><a href="../tag/block">block</a></code> tag
+		to define several blocks that child templates can fill in. All the <code>block</code> tag does is
+		tell the template engine that a child template may override those portions of the template.</p>
+		
+		<p>A child template might look like this:</p>
+				<pre>{{ '
+{% extends "base" %}
+
+{% block title %} Home {% endblock %}
+{% block content %}
+	<h1> Home </h1>
+	<p> Welcome to my home page.</p>
+{% endblock %}
+' | trim | escape }}</pre>
+		<p>The first line uses the <code><a href="../tag/extends">extends</a></code> tag to inform
+		the Pebble engine that our base template will be the parent template. The <code>extends</code>
+		tag should be the first tag in the template and there can only be one.</p> 
+		
+		<p>Note that since the child template doesn't define the <code>footer</code> block, the value from
+		the parent is used instead. It is also possible to render the contents of a parent block by using
+		the <code><a href="../function/parent">parent</a></code> function.
 		
 		<h2>Macros</h2>
-		<p>Macros</p>
+		<p>Macros are comparable with functions in regular programming languages. They are useful to reuse 
+		often used HTML fragments to not repeat yourself.</p>
+		<p>A macro is defined via the <code><a href="../tag/macro">macro</a></code> tag. Here is a small example
+		that renders a form element:</p>
+		<pre>{{ '
+{% macro input(type, name, value) %}
+	<input type="{{ type }}" name="{{ name }}" value="{{ value }}" />
+{% endmacro %}
+' | trim | escape }}</pre>
+		<p>If the macro resides in the current template, use the special <code>_self</code> variable to call it:</p>
+		<pre>{{ '
+{{ _self.input("text", "name", "Mitchell") }}
+' | trim | escape }}</pre>
+		<p>Otherwise use the <code><a href="../tag/import">import</a></code> tag first:
+		<pre>{{ '
+{% import "form_util" as form %}
+{{ form.input("text", "name", "Mitchell") }}
+' | trim | escape }}</pre>
 		
 		<h2>Expressions</h2>
-		<p>Expressions</p>
+		<p>Expressions are a large part of Pebble templates and are very similar to expressions found in Java.</p>
 		
+		<h3>Literals</h3>
+		<p>The simplest form of expressions are literals. Literals are representations for Java types
+		such as strings and numbers.</p>
+		<ul>
+			<li><code"Hello World"</code>: Everything between two double or single quotes is a string. You can use a backslash (<code>\</code>)
+			to escape quotation marks within the string.</li>
+			<li><code>100 * 2.5</code>: Integers and floating point numbers are created by just writing the number down. If a dot
+			is present the number is a double, otherwise an integer.</li>
+			<li><code>true / false</code>: Boolean values equivalent to their Java counterparts.</li>
+			<li><code>null</code>: Represents no specific value similar to it's Java counterpart. <code>none</code> is an alias for null.</li>
+		</ul>
+		
+		<h3>Math</h3>
+		<p>Pebble allows you to calculate values using some basic mathematical operators. The following operators are supported:
+		<ul>
+			<li><code>+</code>: Addition</li>
+			<li><code>-</code>: Subtraction</li>
+			<li><code>/</code>: Division</li>
+			<li><code>%</code>: Modulus</li>
+			<li><code>*</code>: Multiplication</li>
+		</ul>
+		
+		<h3>Logic</h3>
+		<p>You can combine multiple expressions with the following operators:
+		<ul>
+			<li><code>and</code>: Retursn true if the left and right operands are both true.
+			<li><code>or</code>: Returns true if the left or the right operand is true.
+			<li><code>not</code>: Negates a statement.
+			<li><code>(...)</code>: Groups an expression.
+		</ul>
+		
+		<h3>Comparisons</h3>
+		<p>The following comparison operators are supported in any expression: <code>==</code>, <code>!=</code>, <code>&lt;</code>, 
+		<code>&gt;</code>, <code>&gt;=</code>, and <code>&lt;=</code>.
+		
+		<h3>Tests</h3>
+		<p>The <code>is</code> operator performs tests. Tests can be used to test a variable against a common expression. The right
+		operand is the name of the test:</p>
+		<pre>{{ '
+{% if age is odd %}
+	...
+{% endif %}
+' | trim | escape }}</pre>
+		<p>Tests can be negated by using the <code>is not</code> operator:</p>
+		<pre>{{ '
+{% if name is not null %}
+	...
+{% endif %}
+' | trim | escape }}</pre>
+		<p>Go to the <a href="../test">tests</a> page to learn more.</p>		
+		
+		<h3>Other Operators</h3>
+		<ul>
+			<li><code>|</code>: Applies a <a href="../filter">filter</a></li>
+			<li><code>?:</code>: Conditional (ternary) operator:</li>
+		</ul>
+		<pre>{{ '
+{{ foo ? "yes" : "no" }}
+' | trim | escape }}</pre>
+		
+		<h3>Operator Precedence</h3>
+		<p>In order from highest to lowest precedence:
+		<ol>
+			<li><code>.</code></li>
+			<li><code>|</code></li>
+			<li><code>is not</code></li>
+			<li><code>is</code></li>
+			<li><code>%</code></li>
+			<li><code>/</code></li>
+			<li><code>*</code></li>
+			<li><code>-</code></li>
+			<li><code>+</code></li>
+		</ol>
+		</p>
 		
 	</div>
 {% endblock content%}
