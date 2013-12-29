@@ -1,4 +1,4 @@
-{% extends "base" %}
+{% extends "documentation/guides/guide" %}
 
 {% block navigation %}
 	{% set activeNav = "Get Started" %}
@@ -10,10 +10,11 @@
     <p>A sleek modern java templating engine.</p>
 {% endblock pageheader %}
 
-{% block content %}
-	<div class="container content">
+{% block guideTitle %}Get Started{% endblock %}
+
+{% block guideContent %}
 		
-		<h2>Installation</h2>
+		<h3>Installation</h3>
 		<p>
 			Pebble is hosted in the Maven Central Repository. Simply add the following dependency into your <code>pom.xml</code>
 			file:
@@ -39,7 +40,7 @@
 </dependency>' | trim | escape }}</pre>
 		</p>
 		
-		<h2>Configuration</h2>
+		<h3>Configuration</h3>
 		
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#spring" data-toggle="tab">Java + Spring MVC</a></li>
@@ -108,7 +109,7 @@ String output = compiledTemplate.render(context);
 		</div>
 		
 		
-		<h2>Settings</h2>
+		<h3>Settings</h3>
 		<p>
 			<dl class="dl-horizontal">
 				<dt>cacheTemplates</dt>
@@ -129,5 +130,4 @@ String output = compiledTemplate.render(context);
 		</p>
 		
 		<a class="btn btn-success btn-lg" href="basic-usage">Basic Usage <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
-	</div>
-{% endblock content%}
+{% endblock %}

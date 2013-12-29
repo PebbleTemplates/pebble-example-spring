@@ -26,6 +26,7 @@ public class DocumentationController extends BaseController {
 	@RequestMapping("/guide/{guideName}")
 	public ModelAndView getGuide(@PathVariable("guideName") String guideName) {
 		ModelAndView mav = getMav();
+		mav.addObject("guideName", guideName);
 		mav.setViewName("documentation/guides/" + guideName);
 		return mav;
 	}

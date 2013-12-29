@@ -1,0 +1,80 @@
+{% extends "documentation/guides/guide" %}
+
+{% block guideTitle %}Extending Pebble{% endblock %}
+
+{% block guideContent %}
+	<h3>Overview</h3>
+	<p>
+		Pebble was designed to be flexible and accomodate the requirements of any project. You
+		can add your own tags, operators, filters, and tests. All of these are quite trivial to
+		implement except for custom tags but fortunately it's very rare to require a custom tag. 
+	</p>
+	
+	<p>
+		To create an extension which will provide all the filters, test, etc, create a
+		class that implements <code>com.mitchellbosecke.pebble.extension.Extension</code>. For your
+		own convenience, I recommend extending 
+		<code>com.mitchellbosecke.pebble.extension.AbstractExtension</code> if you can. After 
+		implementing the required methods, register your extension class with the PebbleEngine 
+		before compiling any templates:
+		<pre>{{ '
+PebbleEngine engine = new PebbleEngine();
+engine.addExtension(new MyCustomExtension());' | trim | escape }}</pre>
+	</p>		
+
+	<h3>Filters</h3>
+	<p>
+		A filter is designed to modify existing data, not provide new data. To provide
+		custom filters, implement the <code>getFilters()</code> method of your extension which
+		will return a <code>List</code> of <code>com.mitchellbosecke.pebble.filter.Filter</code> objects. 
+		The	<code>Filter</code> interface requires two methods, one which simply returns the name
+		of the filter and the other is the actual application of the filter. The <code>apply(...)</code> method
+		will be given an <code>Object</code> which is the data to be filtered as well as a 
+		<code>List&lt;Object&gt;</code> containing any other arguments the user may have
+		provided. Here is an example of how the <code><a href="../filter/upper">upper</a></code>
+		filter might be implemented:
+		<pre>{{ '
+public UpperFilter implements Filter {
+
+	public String getName(){
+		return "upper";
+	}
+	
+	public Object apply(Object input, List<Object> args){
+		String str = (String) input;
+		return str.toUpperCase();
+	}
+
+}' | trim | escape }}</pre>
+	</p>
+	
+	<h3>Tests</h3>
+	<p>
+		Adding custom tests is very similar to custom filters. Implement the <code>getTests()</code>
+		method within your extension which will return a <code>List</code> of 
+		<code>com.mitchellbosecke.pebble.test.Test</code> objects.
+		The	<code>Test</code> interface requires two methods, one which simply returns the name
+		of the test and the other is the actual application of the test. The <code>apply(...)</code> method
+		will be given an <code>Object</code> which is the data to be tested as well as a 
+		<code>List&lt;Object&gt;</code> containing any other arguments the user may have
+		provided. Here is an example of how the <code><a href="../test/even">even</a></code>
+		test might be implemented:
+		<pre>{{ '
+public EvenTest implements Test {
+
+	public String getName(){
+		return "even";
+	}
+	
+	public Boolean apply(Object input, List<Object> args){
+		Integer in = (Integer) input;
+		return (in % 2 == 0);
+	}
+
+}' | trim | escape }}</pre>
+	</p>
+	
+	<h3>Operators</h3>
+	
+	<h3>Tags</h3>
+{% endblock %}
