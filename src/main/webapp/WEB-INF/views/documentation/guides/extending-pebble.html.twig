@@ -54,7 +54,8 @@ public UpperFilter implements Filter {
 		method within your extension which will return a <code>List</code> of 
 		<code>com.mitchellbosecke.pebble.test.Test</code> objects.
 		The	<code>Test</code> interface requires two methods, one which simply returns the name
-		of the test and the other is the actual application of the test. The <code>apply(...)</code> method
+		of the test and the other is the actual application of the test which returns a boolean value. 
+		The <code>apply(...)</code> method
 		will be given an <code>Object</code> which is the data to be tested as well as a 
 		<code>List&lt;Object&gt;</code> containing any other arguments the user may have
 		provided. Here is an example of how the <code><a href="../test/even">even</a></code>
@@ -75,6 +76,49 @@ public EvenTest implements Test {
 	</p>
 	
 	<h3>Operators</h3>
-	
+	<p>
+		To add custom operators, implement the <code>getBinaryOperators()</code>
+		or the <code>getUnaryOperators()</code> method in your extension, or both.
+		These methods each return a <code>List</code> of either
+		<code>com.mitchellbosecke.pebble.operator.BinaryOperator</code> or 
+		<code>com.mitchellbosecke.pebble.operator.UnaryOperator</code> objects.
+	</p>
+	<p>
+		Binary operators require the following information:
+		<ul>
+			<li>Precedence: an integer relative to other operators which defines order of operations.</li>
+			<li>Symbol: a String representing the actual operator. This is typically a single character but doesn't have to be.</li>
+			<li>Node Class: A class which extends <code>com.mitchellbosecke.pebble.node.expression.NodeExpressionBinary</code> which handles compilation.</li>
+			<li>Associativity: Either left or right depending on how the operator is used.</li>
+		</ul>
+	</p>
+	<p>
+		A unary operator is much the same except it's node class must be a class that extends
+		<code>com.mitchellbosecke.pebble.node.expression.NodeExpressionUnary</code> and
+		there is no associativity.
+	</p>
+	<p>
+		The precedence values for existing core operators are as followed:
+		<ul>
+			<li><code>or</code> - 10</li>
+			<li><code>and</code> - 15</li>
+			<li><code>==</code> - 20</li>
+			<li><code>!=</code> - 20</li>
+			<li><code>&gt;</code> - 20</li>
+			<li><code>&lt;</code> - 20</li>
+			<li><code>&gt;=</code> - 20</li>
+			<li><code>&lt;=</code> - 20</li>
+			<li><code>+</code> - 30</li>
+			<li><code>-</code> - 30</li>
+			<li><code>not</code> - 50 (Unary Version)</li>
+			<li><code>*</code> - 60</li>
+			<li><code>/</code> - 60</li>
+			<li><code>%</code> - 60</li>
+			<li><code>is</code> - 100</li>
+			<li><code>is not</code> - 100</li>
+			<li><code>+</code> - 500 (Unary Version)</li>
+			<li><code>-</code> - 500 (Unary Version)</li>
+		</ul>
+	</p>
 	<h3>Tags</h3>
 {% endblock %}
