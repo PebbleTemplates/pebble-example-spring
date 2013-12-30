@@ -11,11 +11,11 @@
 	</p>
 	
 	<p>
-		To create an extension which will provide all the filters, test, etc, create a
+		To create an extension create a
 		class that implements <code>com.mitchellbosecke.pebble.extension.Extension</code>. For your
 		own convenience, I recommend extending 
 		<code>com.mitchellbosecke.pebble.extension.AbstractExtension</code> if you can. After 
-		implementing the required methods, register your extension class with the PebbleEngine 
+		implementing the required methods, register your extension with the PebbleEngine 
 		before compiling any templates:
 		<pre>{{ '
 PebbleEngine engine = new PebbleEngine();
@@ -110,15 +110,147 @@ public EvenTest implements Test {
 			<li><code>&lt;=</code> - 20</li>
 			<li><code>+</code> - 30</li>
 			<li><code>-</code> - 30</li>
-			<li><code>not</code> - 50 (Unary Version)</li>
+			<li><code>not</code> - 50 (Unary)</li>
 			<li><code>*</code> - 60</li>
 			<li><code>/</code> - 60</li>
 			<li><code>%</code> - 60</li>
 			<li><code>is</code> - 100</li>
 			<li><code>is not</code> - 100</li>
-			<li><code>+</code> - 500 (Unary Version)</li>
-			<li><code>-</code> - 500 (Unary Version)</li>
+			<li><code>+</code> - 500 (Unary)</li>
+			<li><code>-</code> - 500 (Unary)</li>
 		</ul>
 	</p>
+	<p>
+		The following is an	example of how the addition operator (<code>+</code>) might have been 
+		implemented:
+	</p>
+			<pre>{{ '
+public AdditionOperator implements BinaryOperator {
+
+	public int getPrecedence(){
+		return 30;
+	}
+	
+	public String getSymbol(){
+		return "+";
+	}
+	
+	public Class<? extends NodeExpressionBinary> getNodeClass(){
+		return AdditionNode.class;
+	}
+	
+	public Associativity getAssociativity(){
+		return Associativity.LEFT;
+	}
+
+}' | trim | escape }}</pre>
+	<p>
+		Alongside each Operator class you will also need to implement a corresponding
+		Node class which defines how the operator gets compiled into Java. The above
+		example references <code>AdditionNode.class</code>. 
+	</p>
+	<p> 
+		Here is what the <code>AdditionNode</code> class might look like:
+	</p>
+			<pre>{{ '
+public AdditionNode extends NodeExpressionBinary {
+
+	public void compile(Compiler compiler){
+		compiler.raw("(");
+			.subcompile(leftExpression);
+			.raw(" + ")
+			.subcompile(rightExpression)
+			.raw(")");
+	}
+
+}' | trim | escape }}</pre>
+	<p>
+		In the above example you will notice that children of NodeExpressionBinary
+		have access to two other node classes, <code>leftExpression</code>, and 
+		<code>rightExpression</code>.
+	<p>
+		Although your node class only has to extend <code>NodeExpressionBinary</code>,
+		I suggest extending <code>NodeExpressionBinarySimple</code> to help	you out with compilation. 
+		In that case, <code>AdditionNode</code> would look like the following:
+	</p>
+	<pre>{{ '
+public AdditionNode extends NodeExpressionBinarySimple {
+
+	public void operator(Compiler compiler){
+		compiler.raw("+");
+	}
+
+}' | trim | escape }}</pre>
+	<p>
+		The compiler uses the builder design pattern and provides methods
+		that helps the developer generate beautiful and readable Java code:
+	
+		<ul>
+			<li><code>subcompile()</code>: Compiles a node.</li>
+			<li><code>write()</code>: Writes the given string, prefixed with indentation.</li>
+			<li><code>raw()</code>: Writes the given string as is.</li>
+			<li><code>string()</code>: Writes a quoted Java string.</li>
+			<li><code>indent()</code>: Increases the indentation.</li>
+			<li><code>outdent()</code>: Decreases the indentation.</li>
+		</ul>
+	</p>
+	
 	<h3>Tags</h3>
+	<p>
+		Creating new tags is one of the most powerful abilities of Pebble although it is
+		not trivial. Your extension should start by implementing the <code>getTokenParsers()</code>
+		method. A TokenParser is responsible for converting all necessary tokens to 
+		appropriate Nodes. The Nodes are then responsibile for compiling themselves into Java code.
+	</p>
+	<p>
+		Let us look at an example of a TokenParser:
+	</p>
+		<pre>{{ '
+public SetTokenParser extends AbstractTokenParser {
+
+	public String getTag(){
+		return "set";
+	}
+
+	public Node parse(Token token) throws SyntaxException {
+		TokenStream stream = this.parser.getStream();
+		int lineNumber = token.getLineNumber();
+		
+		// skip the "set" token
+		stream.next();
+
+		NodeExpressionDeclaration name = this.parser.getExpressionParser().parseDeclarationExpression();
+
+		stream.expect(Token.Type.PUNCTUATION, "=");
+		
+		NodeExpression value = this.parser.getExpressionParser().parseExpression();
+
+		stream.expect(Token.Type.EXECUTE_END);
+
+		return new NodeSet(lineNumber, name, value);
+	}
+
+}' | trim | escape }}</pre>
+	<p>
+		The <code>getTag()</code> method must return the tag we want to parse.
+		This example is parsing the <code>set</code> keyword.
+	</p>
+	<p>
+		The parse method is invoked whenever the primary parser encounters a 
+		<code>set</code> tag. It should return one <code>Node</code> instance
+		which may or may not contain children nodes. Creating Nodes was described
+		above, in the section on how to create custom operators.
+	</p>
+	<p>
+		The best way to learn all the details of parsing is to look at some of
+		the tools used, as well as some examples. Here is a list of classes I 
+		suggest reading:
+		<ul>
+			<li><code>com.mitchellbosecke.pebble.tokenParser.TokenParser</code></li>
+			<li><code>com.mitchellbosecke.pebble.parser.Parser</code></li>
+			<li><code>com.mitchellbosecke.pebble.tokenParser.SetTokenParser</code></li>
+			<li><code>com.mitchellbosecke.pebble.tokenParser.BlockTokenParser</code></li>
+		</ul> 
+	</p>
+	
 {% endblock %}
