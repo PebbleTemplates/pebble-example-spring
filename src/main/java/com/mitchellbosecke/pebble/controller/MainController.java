@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value="/")
-public class HomeController extends BaseController{
+public class MainController extends BaseController{
 	
 	@RequestMapping
 	public String getRoot(){
@@ -18,6 +18,13 @@ public class HomeController extends BaseController{
 	public ModelAndView getHome() {
 		ModelAndView mav = getMav();
 		mav.setViewName("home");
+		return mav;
+	}
+	
+	@RequestMapping(value="/license", method=RequestMethod.GET)
+	public ModelAndView getLicense() {
+		ModelAndView mav = getMav();
+		mav.setViewName("license");
 		return mav;
 	}
 }
