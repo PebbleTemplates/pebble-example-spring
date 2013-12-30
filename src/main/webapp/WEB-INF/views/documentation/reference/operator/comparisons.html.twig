@@ -3,20 +3,19 @@
 {% block componentDetails %}
 	<p>
 		Pebble provides the following comparison operators: ==, !=, <, >, <=, >=. 
-		These operators are ultimately compiled into their Java equivalents and therefore
-		behave the same way.
+		All of them except for <code>==</code> are equivalent to their Java counterparts. The equals
+		operator, <code>==</code>, uses <code>java.util.Objects.equals(a, b)</code> behind the scenes
+		to perform null safe comparisons. <code>equals</code> is an alias for <code>==</code>.
 	</p>
 
 	<p>
 		<pre><code>{{ 
 '
-{% if 2 < 10 %}
+{% if user.name equals "Mitchell" %}
 	...
 {% endif %}
 '
 		| trim | escape }}</code></pre>
 	</p>
-	
-
 {% endblock componentDetails %}
 	
