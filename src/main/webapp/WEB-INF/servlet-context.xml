@@ -17,8 +17,7 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 	<bean id="pebbleEngine" class="com.mitchellbosecke.pebble.PebbleEngine">
-		<property name="cacheTemplates" value="true" />
-		<property name="strictVariables" value="true" />
+		<property name="strictVariables" value="false" />
 		<property name="loader">
 			<bean class="com.mitchellbosecke.pebble.spring.PebbleTemplateLoader" />
 		</property>

@@ -25,9 +25,8 @@
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 					<ul class="nav navbar-nav">
 						{%  block navigation %}
-							{{ _self.navItem("Home", "home", "Home" is equalTo(activeNav) ) }}
-							{{ _self.navItem("Get Started", "documentation/guide/get-started", "Get Started" is equalTo(activeNav) ) }}
-							{{ _self.navItem("Documentation", "documentation", "Documentation" is equalTo(activeNav) ) }}
+							{{ navItem(contextRoot, "Home", "home", "Home" equals activeNav) }}
+							{{ navItem(contextRoot, "Documentation", "documentation", "Documentation" equals activeNav) }}
 							<li><a href="http://blog.pebble.mitchellbosecke.com">Blog</a></li>
 						{% endblock navigation %}
 				    </ul>
@@ -68,6 +67,6 @@
     </body>
 </html>
 
-{% macro navItem(name, href, active) %}
+{% macro navItem(contextRoot, name, href, active) %}
 	<li class="{{ active? "active" : "" }}"><a href="/{{contextRoot}}/{{ href }}">{{ name }}</a></li>
 {% endmacro %}

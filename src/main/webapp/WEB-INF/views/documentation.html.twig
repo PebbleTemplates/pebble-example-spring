@@ -14,7 +14,7 @@
 	<div class="container">
 		<h2>Guides</h2>
 		<ul>
-			<li><a href="documentation/guide/get-started">Installation and Configuration</a></li>
+			<li><a href="documentation/guide/installation">Installation and Configuration</a></li>
 			<li><a href="documentation/guide/basic-usage">Basic Usage</a></li>
 			<li><a href="documentation/guide/extending-pebble">Extending Pebble</a></li>
 		</ul>
@@ -26,7 +26,7 @@
 				<h3>Tags</h3>
 				<ul>
 				{% for tagName in tagList %}
-					{{ _self.referenceItem("tag", tagName) }}
+					{{ referenceItem("tag", tagName) }}
 				{% endfor %}
 				</ul>
 			</div>
@@ -34,7 +34,7 @@
 				<h3>Filters</h3>
 				<ul>
 				{% for filterName in filterList %}
-					{{ _self.referenceItem("filter", filterName) }}
+					{{ referenceItem("filter", filterName) }}
 				{% endfor %}
 				</ul>
 			</div>
@@ -42,7 +42,7 @@
 				<h3>Functions</h3>
 				<ul>
 				{% for functionName in functionList %}
-					{{ _self.referenceItem("function", functionName) }}
+					{{ referenceItem("function", functionName) }}
 				{% endfor %}
 				</ul>
 			</div>
@@ -50,7 +50,7 @@
 				<h3>Tests</h3>
 				<ul>
 				{% for testName in testList %}
-					{{ _self.referenceItem("test", testName) }}
+					{{ referenceItem("test", testName) }}
 				{% endfor %}
 				</ul>
 			</div>
@@ -58,11 +58,11 @@
 	
 		<h3>Operators</h3>
 		<ul>
-			{{ _self.referenceItem("operator", "is") }}
-			{{ _self.referenceItem("operator", "math", "(<code>+</code>,<code>-</code>,<code>/</code>,<code>%</code>,<code>*</code>)") }}
-			{{ _self.referenceItem("operator", "logic", "(<code>and</code>,<code>or</code>,<code>not</code>,<code>()</code>)") }}
-			{{ _self.referenceItem("operator", "comparisons", "(<code>==</code>,<code>!=</code>,<code>&lt;</code>,<code>&gt;</code>,<code>&lt;=</code>,<code>&gt;=</code>,<code>equals</code>)") }}
-			{{ _self.referenceItem("operator", "others", "(<code>|</code>,<code>?:</code>)") }}
+			{{ referenceItem("operator", "is") }}
+			{{ referenceItem("operator", "math", "(<code>+</code>,<code>-</code>,<code>/</code>,<code>%</code>,<code>*</code>)") }}
+			{{ referenceItem("operator", "logic", "(<code>and</code>,<code>or</code>,<code>not</code>,<code>()</code>)") }}
+			{{ referenceItem("operator", "comparisons", "(<code>==</code>,<code>!=</code>,<code>&lt;</code>,<code>&gt;</code>,<code>&lt;=</code>,<code>&gt;=</code>,<code>equals</code>)") }}
+			{{ referenceItem("operator", "others", "(<code>|</code>,<code>?:</code>)") }}
 		</ul>
 	</div>
 {% endblock content%}

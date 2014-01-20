@@ -1,16 +1,11 @@
 {% extends "documentation/guides/guide" %}
 
-{% block navigation %}
-	{% set activeNav = "Get Started" %}
-	{{ parent() }}
-{% endblock navigation %}
-
 {% block pageheader %}
 	<h1>Get Started</h1> 
     <p>A sleek modern java templating engine.</p>
 {% endblock pageheader %}
 
-{% block guideTitle %}Get Started{% endblock %}
+{% block guideTitle %}Installation & Configuration{% endblock %}
 
 {% block guideContent %}
 		
@@ -55,7 +50,6 @@
   					<pre class="xml">{{ '
 
 <bean id="pebbleEngine" class="com.mitchellbosecke.pebble.PebbleEngine">
-	<property name="cacheTemplates" value="true" />
 	<property name="strictVariables" value="false" />
 	<property name="loader">
 		<bean class="com.mitchellbosecke.pebble.spring.PebbleTemplateLoader" />
@@ -112,20 +106,27 @@ String output = compiledTemplate.render(context);
 		<h3>Settings</h3>
 		<p>
 			<dl class="dl-horizontal">
-				<dt>cacheTemplates</dt>
-				<dd>
-					If set to true, Pebble will only compile a template to bytecode the first time it is used 
-					and then reuse that compiled class for subsequent calls. It does not cache the final 
-					rendered output which is dependent on context map that you provide the template.
-					<br> 
-					Default: <strong>true</strong> 
-				</dd>
 				<dt>strictVariables</dt>
 				<dd>
 					If set to true, Pebble will throw an exception if you try to access a variable or attribute
-					that does not exist. If set to false, Pebble will treat non-existing variables as null.
+					that does not exist. If set to false, Pebble will continue to render templates as best as it 
+					can (typically by treating the non-existent variable as an empty string). 
 					<br>
 					Default: <strong>false</strong>
+				<dt>cache</dt>
+				<dd>
+					An implementation of the <code>Cache</code> interface that the Pebble engine will use
+					to cache compiled templates. 
+					<br> 
+					Default: <strong>A default in-memory cache implementation</strong> 
+				</dd>
+				<dt>executorService</dt>
+				<dd>
+					An <code>ExecutorService</code> that allows the usage of some advanced multithreading features, 
+					such as the	<code>parallel</code> tag.
+					<br> 
+					Default: <strong>null</strong> 
+				</dd>
 			</dl>
 		</p>
 		

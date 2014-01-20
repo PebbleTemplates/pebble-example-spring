@@ -76,11 +76,13 @@ public class DocumentationController extends BaseController {
 		List<String> list = new ArrayList<>();
 		list.add("block");
 		list.add("extends");
+		list.add("flush");
 		list.add("for");
 		list.add("if");
 		list.add("import");
 		list.add("include");
 		list.add("macro");
+		list.add("parallel");
 		list.add("set");
 		return list;
 	}
@@ -95,7 +97,7 @@ public class DocumentationController extends BaseController {
 		list.add("format");
 		list.add("json");
 		list.add("lower");
-		list.add("number");
+		list.add("numberformat");
 		list.add("trim");
 		list.add("upper");
 		list.add("urlencode");
@@ -106,6 +108,8 @@ public class DocumentationController extends BaseController {
 		List<String> list = new ArrayList<>();
 		list.add("block");
 		list.add("parent");
+		list.add("min");
+		list.add("max");
 		return list;
 	}
 

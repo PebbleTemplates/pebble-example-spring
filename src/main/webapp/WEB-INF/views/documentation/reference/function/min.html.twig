@@ -1,0 +1,18 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>min</code> function will return the smallest of it's numerical arguments. 
+	</p>
+	
+	<p>
+		<pre><code>{{ 
+'
+{{ min(user.age, 80) }}
+'
+		| trim | escape }}</code></pre>
+	</p>
+
+
+{% endblock componentDetails %}
+	

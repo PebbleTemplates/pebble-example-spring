@@ -26,10 +26,10 @@
 	attempt to access the <code>bar</code> field of the <code>foo</code> variable:
 		<ul>
 			<li>If <code>foo</code> is a <code>Map</code>, use the <code>get(String name)</code> method.</li>
-			<li>Check if <code>bar</code> is a public property of <code>foo</code>.</li>
-			<li>Check if <code>bar()</code> is a public method of <code>foo</code>.</li>
 			<li>Check if <code>getBar()</code> is a public method of <code>foo</code>.</li>
 			<li>Check if <code>isBar()</code> is a public method of <code>foo</code>.</li>
+			<li>Check if <code>bar()</code> is a public method of <code>foo</code>.</li>
+			<li>Check if <code>bar</code> is a public property of <code>foo</code>.</li>
 		</ul>
 	
 	<h3>Filters</h3>
@@ -42,7 +42,7 @@
 	</p>
 	<p>Filters that accept arguments have parentheses around the arguments. This example will format a decimal number:
 	<pre>{{ '
-{{ 3.141592653 | number("#.##") }}' | trim | escape }}</pre>
+{{ 3.141592653 | numberformat("#.##") }}' | trim | escape }}</pre>
 	</p>
 	<p>Go to the <a href="../filter">filters</a> page for more information.</p>
 	
@@ -139,21 +139,22 @@ Bottom Content
 	<h3>Macros</h3>
 	<p>Macros are comparable with functions in regular programming languages. They are useful to reuse 
 	often used HTML fragments to not repeat yourself.</p>
-	<p>A macro is defined via the <code><a href="../tag/macro">macro</a></code> tag. Here is a small example
-	that renders a form element:</p>
+	<p>A macro is defined via the <code><a href="../tag/macro">macro</a></code> tag. First let us look
+	at an example of how the macro is defined:</p>
 	<pre>{{ '
 {% macro input(type, name, value) %}
 	<input type="{{ type }}" name="{{ name }}" value="{{ value }}" />
 {% endmacro %}
 ' | trim | escape }}</pre>
-	<p>If the macro resides in the current template, use the special <code>_self</code> variable to call it:</p>
+	<p>And now how that macro would be invoked:</p>
 	<pre>{{ '
-{{ _self.input("text", "name", "Mitchell") }}
+{{ input("text", "name", "Mitchell") }}
 ' | trim | escape }}</pre>
-	<p>Otherwise use the <code><a href="../tag/import">import</a></code> tag first:
+	<p>To use macros located in another template, you must <code><a href="../tag/import">import</a></code> 
+	the other template:
 	<pre>{{ '
-{% import "form_util" as form %}
-{{ form.input("text", "name", "Mitchell") }}
+{% import "form_util" %}
+{{ input("text", "name", "Mitchell") }}
 ' | trim | escape }}</pre>
 	
 	<h3>Expressions</h3>
@@ -163,7 +164,7 @@ Bottom Content
 	<p>The simplest form of expressions are literals. Literals are representations for Java types
 	such as strings and numbers.</p>
 	<ul>
-		<li><code"Hello World"</code>: Everything between two double or single quotes is a string. You can use a backslash (<code>\</code>)
+		<li><code>"Hello World"</code>: Everything between two double or single quotes is a string. You can use a backslash (<code>\</code>)
 		to escape quotation marks within the string.</li>
 		<li><code>100 * 2.5</code>: Integers and floating point numbers are created by just writing the number down. If a dot
 		is present the number is a double, otherwise an integer.</li>
