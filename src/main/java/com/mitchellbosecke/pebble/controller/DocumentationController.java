@@ -95,7 +95,6 @@ public class DocumentationController extends BaseController {
 		list.add("default");
 		list.add("escape");
 		list.add("format");
-		list.add("json");
 		list.add("lower");
 		list.add("numberformat");
 		list.add("trim");
