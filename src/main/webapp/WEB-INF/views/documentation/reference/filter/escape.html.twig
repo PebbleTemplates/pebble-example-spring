@@ -9,14 +9,28 @@
 		<pre><code>{{ 
 '
 {{ "<div>" | escape }}
-
-{#
-	output: "&lt;div&gt;"
-#}
 '
 		| trim | escape }}</code></pre>
 	</p>
+	<p>The above example will output the following:</p>
+	<pre><code>{{ 
+'
+&lt;div&gt;
+'
+		| trim | escape }}</code></pre>	
+	<p>The following characters are will be escaped by this filter:
+		<ul>
+			<li><code>&amp;</code></li>
+			<li><code>&lt;</code></li>
+			<li><code>&gt;</code></li>
+			<li><code>&quot;</code></li>
+			<li><code>&#x27;</code></li>
+			<li><code>&#x2F;</code></li>
+		</ul>
+	</p>
 
+	<p> There are plans to incorporate other escaping strategies (ex. js, css, html attributes, etc) in the future. 
+	There are also plans to incorporate auto-escaping but this is not yet implemented.</p>
 
 {% endblock componentDetails %}
 	

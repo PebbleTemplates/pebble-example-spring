@@ -2,10 +2,10 @@
 
 {% block componentDetails %}
 	<p>
-		The <code>block</code> tag performs two functions: it declares a chunk of content
-		that can be overriden by a child template AND simultaneously overrides the content
-		of the parent template's block of the same name (if it exists). See the 
-		<code><a href="extends">extends</a></code> tag for a more detailed explanation on how 
+		The <code>block</code> tag performs two functions. If used in a parent template, it will
+		designate a section as being allowed to be overriden by a child template. If used in a 
+		child template, it will override the content originally declared in the parent template. 
+		See the	<code><a href="extends">extends</a></code> tag for a more detailed explanation on how 
 		to implement template inheritance.
 	</p>
 		
@@ -16,7 +16,7 @@
 	</p>
 	
 	<p>	The	<code>block</code> tag is immediately followed by the name of the block. This name will be the same
-		name the child template uses to refer to the parent template's block. The <code>endblock</code>
+		name the child template uses to override it. The <code>endblock</code>
 		tag can optionally contain the block's name for readability.
 	</p>
 		
@@ -32,8 +32,8 @@
 	</p>
 	
 	<p>
-		If a template extends another template, <em>all</em> of it's content should reside inside
-		of blocks.
+		A child template should not have any content outside of blocks. A child template is only
+		used to override blocks of a parent template.
 	</p>
 
 {% endblock componentDetails %}

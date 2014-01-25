@@ -10,13 +10,15 @@
 		<pre><code>{{ 
 '
 {{ "THIS IS A LOUD SENTENCE" | lower }}
-
-{#
-	output: "this is a loud sentence"
-#}
 '
 		| trim | escape }}</code></pre>
 	</p>
+			<p>The above example will output the following:</p>
+	<pre><code>{{ 
+'
+this is a loud sentence
+'
+		| trim | escape }}</code></pre>	
 
 
 {% endblock componentDetails %}

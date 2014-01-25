@@ -3,8 +3,8 @@
 {% block componentDetails %}
 	<p>
 		The <code>parallel</code> tag allows you to designate a chunk of content to be rendered
-		in a parallel thread. This tag is only available if you provide an <code>ExecutorService</code>
-		to the main Pebble engine.
+		using a new thread. This tag is only available if you provide an <code>ExecutorService</code>
+		to the main {{ api(currentVersion, null, 'PebbleEngine') }}.
 		
 		<pre><code>{{ 
 '
@@ -22,6 +22,11 @@
 	<p>
 		In the above example, the slow calculation will not block the lowerContent from being evaluated
 		concurrently.
+	</p>
+	
+	<p>
+		See the <a href="../guide/high-performance">high performance</a> guide for more tips on how
+		to improve performance.
 	</p>
 
 

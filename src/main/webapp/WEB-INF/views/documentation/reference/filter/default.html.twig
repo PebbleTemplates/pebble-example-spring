@@ -3,16 +3,32 @@
 {% block componentDetails %}
 	<p>
 		The <code>default</code> filter will render a default value if and only if the object being filtered
-		is empty. To determine if a variable is "empty" it uses the <code><a href="../test/empty">empty</a></code> test. 
+		is empty. A variable is empty if it is null, an empty string, an empty collection, or an empty map.
 	</p>
 	
 	<p>
 		<pre><code>{{ 
 '
-{{ professor.faculty | default("not applicable") }}
+{{ user.phoneNumber | default("No phone number") }}
 '
 		| trim | escape }}</code></pre>
 	</p>
+	
+	<p>
+		If the <code>strictVariables</code> setting of the {{ api(currentVersion, null, 'PebbleEngine') }} is 
+		set to <code>false</code> (which is the default), then attribute expressions are null safe. In the following
+		example, if <code>foo</code>, <code>bar</code>, or <code>baz</code> are null the output will become an empty
+		string which is a perfect use case for the <code>default</code> filter:
+	</p>
+			<pre><code>{{ 
+'
+{{ foo.bar.baz | default("No baz") }}
+'
+		| trim | escape }}</code></pre>
+	</p>
+	
+	<p>If <code>strictVariables</code> is set to <code>true</code>, the above example will throw a null pointer
+	exception if either <code>foo</code> or <code>bar</code> are null.</p>
 
 
 {% endblock componentDetails %}

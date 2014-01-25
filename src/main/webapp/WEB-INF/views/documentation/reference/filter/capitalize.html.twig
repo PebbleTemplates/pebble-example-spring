@@ -7,11 +7,15 @@
 		<pre><code>{{ 
 '
 {{ "article title" | capitalize }}
-
-{# output: Article title #}
 '
 		| trim | escape }}</code></pre>
 	</p>
+	<p>The above example will output the following:</p>
+	<pre><code>{{ 
+'
+Article title
+'
+		| trim | escape }}</code></pre>	
 
 
 {% endblock componentDetails %}

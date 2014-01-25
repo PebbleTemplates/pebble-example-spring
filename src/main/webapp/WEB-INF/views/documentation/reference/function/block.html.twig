@@ -2,9 +2,9 @@
 
 {% block componentDetails %}
 	<p>
-		The <code>block</code> function is used to render the contents of a block in a location other
-		than where the block was first declared. It is not to be confused with the 
-		<code><a href="../tag/block">block</a></code> tag which is used to declare blocks.  
+		The <code>block</code> function is used to render the contents of a block more than
+		once. It is not to be confused with the 
+		<code><a href="../tag/block">block</a></code> <strong>tag</strong> which is used to declare blocks.  
 	</p>
 	
 	<p>
@@ -12,11 +12,29 @@
 		was declared and again using the <code>block</code> function.
 		<pre><code>{{ 
 '
-{% block "post" %} default contents {% endblock %}
+{% block "post" %} content {% endblock %}
 
 {{ block("post") }}
 '
 		| trim | escape }}</code></pre>
+	</p>
+		<p>The above example will output the following:</p>
+	<pre><code>{{ 
+'
+content
+
+content
+'
+		| trim | escape }}</code></pre>	
+	
+	<h4>Performance Warning:</h4>
+	<p>
+		The block function will impair the use of the <code><a href="../tag/flush">flush</a></code> tag used
+		within the block being rendered.
+		It is typically okay for a block to use the <code><a href="../tag/flush">flush</a></code> tag which
+		will flush the already-rendered content to the user-provided <code>Writer</code> but the 
+		<code>block</code> function will internally use it's own <code>StringWriter</code> and therefore
+		flushing inside the block will no longer do no good.
 	</p>
 
 

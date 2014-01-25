@@ -23,14 +23,28 @@
 			<li>loop.index - a zero-based index that increments with every iteration.</li>
 			<li>loop.length - the size of the object we are iterating over.</li>
 		</ul>
-		
-				<pre><code>{{ 
+	</p>
+	<pre><code>{{ 
 '
 {% for user in users %}
 	{{ loop.index }} - {{ user.id }}
 {% endfor %}
 '
 		| trim | escape }}</code></pre>
+	
+	<p>
+		The <code>for</code> tag also provides a convenient way to check if the <code>Iterable</code>
+		object is empty with the included <code>else</code> tag.
 	</p>
+		<pre><code>{{ 
+'
+{% for user in users %}
+	{{ loop.index }} - {{ user.id }}
+{% else %}
+	There are no users to display.
+{% endfor %}
+'
+		| trim | escape }}</code></pre>
+	
 
 {% endblock componentDetails %}

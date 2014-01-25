@@ -2,17 +2,21 @@
 
 {% block componentDetails %}
 	<p>
-		The <code>abbrevate</code> filter will abreviate a string using ellipsis. It takes one argument which is the 
-		max width of the desired output including the ellipsis.
+		The <code>abbrevate</code> filter will abreviate a string using an ellipsis. It takes one argument which is the 
+		max width of the desired output including the length of the ellipsis.
 		
 		<pre><code>{{ 
 '
 {{ "this is a long sentence." | abbreviate(7) }}
-
-{# will output "this..." #}
 '
 		| trim | escape }}</code></pre>
 	</p>
+	<p> The above example will output the following: </p>
+	<pre><code>{{ 
+'
+this...
+'
+		| trim | escape }}</code></pre>
 
 
 {% endblock componentDetails %}

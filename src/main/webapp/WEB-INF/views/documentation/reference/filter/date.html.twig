@@ -2,14 +2,10 @@
 
 {% block componentDetails %}
 	<p>
-		The <code>date</code> filter will construct a <code>java.text.SimpleDateFormat</code> using the
-		provided pattern to format the provided <code>java.util.Date</code> object. The alternative way to use this
-		filter is to use it on a string but then provide two arguments: the first is the pattern
-		used in the string and the second argument is the pattern desired.
-	</p>
-	
-	<p>
-		Here is an example of how to format an existing <code>java.util.Date</code> object:
+		The <code>date</code> filter is used to format an existing <code>java.util.Date</code> object.
+		The filter will construct a <code>java.text.SimpleDateFormat</code> using the
+		provided pattern and then use this newly created <code>SimpleDateFormat</code> to format 
+		the provided <code>Date</code> object. 
 		<pre><code>{{ 
 '
 {{ user.birthday | date("yyyy-MM-dd") }}
@@ -18,14 +14,22 @@
 	</p>
 	
 	<p>
-		Here is an example of how to reformat a string. First argument is the existing pattern, second argument
-		is the desired pattern.
+		The alternative way to use this	filter is to use it on a string but then provide two arguments: 
+		the first is the pattern used to parse the input string into a <code>java.util.Date</code> object
+		and the second argument is the pattern used to format that newly created <code>Date</code> object
+		back into a string.
+	</p>
 		<pre><code>{{ 
 '
 {{ "July 24, 2001" | date("MMMM dd, yyyy", "yyyy-MM-dd") }}
 '
-		| trim | escape }}</code></pre>
-	</p>	
+		| trim | escape }}</code></pre>	
+		<p>The above example will output the following:</p>
+	<pre><code>{{ 
+'
+2001-07-24
+'
+		| trim | escape }}</code></pre>	
 
 
 {% endblock componentDetails %}

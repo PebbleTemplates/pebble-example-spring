@@ -10,13 +10,15 @@
 		<pre><code>{{ 
 '
 {{ "    This text has too much whitespace.    " | trim }}
-
-{#
-	output: "This text has too much whitespace."
-#}
 '
 		| trim | escape }}</code></pre>
 	</p>
+	<p>The above example will output the following:</p>
+	<pre><code>{{ 
+'
+This text has too much whitespace.
+'
+		| trim | escape }}</code></pre>	
 
 
 {% endblock componentDetails %}
