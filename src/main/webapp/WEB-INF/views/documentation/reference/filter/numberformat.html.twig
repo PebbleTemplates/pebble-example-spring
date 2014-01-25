@@ -1,0 +1,24 @@
+{% extends "documentation/reference/component" %}
+
+{% block componentDetails %}
+	<p>
+		The <code>numberformat</code> filter is used to format a decimal number. Behind the scenes
+		it uses <code>java.text.DecimalFormat</code>. The arguments
+		 
+	</p>
+	
+	<p>
+		<pre><code>{{ 
+'
+{{ 3.141592653 | numberformat("#.##") }}
+
+{#
+	output: 3.14
+#}
+'
+		| trim | escape }}</code></pre>
+	</p>
+
+
+{% endblock componentDetails %}
+	

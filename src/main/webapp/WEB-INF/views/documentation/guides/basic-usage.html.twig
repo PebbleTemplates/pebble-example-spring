@@ -3,16 +3,12 @@
 {% block guideTitle %}Basic Usage{% endblock %}
 
 {% block guideContent %}
-	<h3>Overview</h3>
-	<p>A Pebble template is a simple text file that consists of the Pebble syntax. Pebble
-	templates can be used to generate any sort of text-based output, ex. HTML.
-	</p>
 	
 	<h3>Syntax Reference</h3>
 	<p>There are only two main delimiters used within a Pebble template: 
 	<code>{{'{{ ... }}'}}</code> and <code>{{'{% ... %}'}}</code>. The first set of delimiters
-	will output the result of an expression. That expression can simply be the name of a variable or
-	it can be much more complex. The second set of delimiters is used to change the control
+	will output the result of an expression. Expressions can be very simple (ex. a variable name)
+	or much more complex. The second set of delimiters is used to change the control
 	flow of the template; it can contain an if-statement, define a parent template, define a new block, etc. </p>
 	
 	<h3>Variables</h3>
@@ -20,39 +16,45 @@
 	<p><pre>{{ '
 {{ foo.bar }}' | trim | escape }}</pre>
 	</p>
-	<p>If Pebble's <code>strictVariables</code> setting is set to <code>true</code> then an exception will be thrown when
-	attempting to access a variable that does not exist, otherwise you will get back a null value.</p>
+	<p>If Pebble's <code>strictVariables</code> setting is set to <code>true</code> then an exception will be thrown if either
+	<code>foo</code> or <code>bar</code> are nonexistent or <code>foo</code> is null. By default, <code>strictVariables</code> 
+	is set to <code>false</code> and therefore most expressions are null safe; you can safely write the following without worrying about
+	null variables:</p>
+	<p><pre>{{ '
+{{ foo.bar.baz }}' | trim | escape }}</pre>
+	</p>
+	<p>If any of the above variables are null, the output will be an empty string.</p>
 	<p> Behind the scenes <code>foo.bar</code> will attempt the following techniques to 
-	attempt to access the <code>bar</code> field of the <code>foo</code> variable:
+	to access the <code>bar</code> attribute of the <code>foo</code> variable:
 		<ul>
-			<li>If <code>foo</code> is a <code>Map</code>, use the <code>get(String name)</code> method.</li>
-			<li>Check if <code>getBar()</code> is a public method of <code>foo</code>.</li>
-			<li>Check if <code>isBar()</code> is a public method of <code>foo</code>.</li>
-			<li>Check if <code>bar()</code> is a public method of <code>foo</code>.</li>
-			<li>Check if <code>bar</code> is a public property of <code>foo</code>.</li>
+			<li>If <code>foo</code> is a <code>Map</code>, <code>foo.get("bar")</code>.</li>
+			<li><code>foo.getBar()</code></li>
+			<li><code>foo.isBar()</code></li>
+			<li><code>foo.bar()</code></li>
+			<li><code>foo.bar</code></li>
 		</ul>
-	
+	</p>
 	<h3>Filters</h3>
 	<p>Variables can be modified with the use of filters. Filters are separated from the variable
 	using a pipe symbol (<code>|</code>) and may have optional arguments in parentheses. Multiple filters can 
-	be chained. The output of one filter is applied to the next.</p>
-	<p>The following example will escape all HTML characters from <code>foo</code> and then uppercase the entire output:
-	<pre>{{ '
-{{ foo | escape | upper }}' | trim | escape }}</pre>
+	be chained and the output of one filter is applied to the next.</p>
+	
+	<p><pre>{{ '
+{{ "If life gives you lemons, eat lemons." | upper | abbreviate(13) }}' | trim | escape }}</pre>
 	</p>
-	<p>Filters that accept arguments have parentheses around the arguments. This example will format a decimal number:
-	<pre>{{ '
-{{ 3.141592653 | numberformat("#.##") }}' | trim | escape }}</pre>
-	</p>
-	<p>Go to the <a href="../filter">filters</a> page for more information.</p>
+	<p>The above example will output "IF LIFE GI..."</p>
+	<p>Check out the built-in <a href="../filter">filters</a>.</p>
 	
 	
 	<h3>Functions</h3>
-	<p>Functions return some sort of variable which can be used in an expression or immediately rendered to the template's
-	output. They are called by their named followed by parentheses (<code>()</code>).
-	<pre>{{ '
+	<p>Whereas filters are intended to modify existing content/variables, functions are intended to generate new content.
+	Similar to other programming languages, filters are invoked via their named followed by parentheses (<code>()</code>).</p>
+	<p><pre>{{ '
 {{ parent() }}' | trim | escape }}</pre></p>
-	<p>Go to the <a href="../function">functions</a> page for more information.</p>
+	<p>The output of a function can then be further modified before outputting:</p>
+	<p><pre>{{ '
+{{ max(user.score, highscore) | numberformat("#.##") }}' | trim | escape }}</pre></p>
+	<p>Check out the built-in <a href="../function">functions</a>.</p>
 	
 	<h3>Control Structure</h3>
 	<p>Pebble provides several tags to control the flow of your template, two of the main ones being 
@@ -70,7 +72,7 @@
 	{% endfor %}
 {% endfor %}' | trim | escape }}</pre>
 	</p>
-	<p>Go to the <a href="../tag">tags</a> page for more information.</p>
+	<p>Check out all of the built-in <a href="../tag">tags</a>.</p>
 	
 	<h3>Comments</h3>
 	<p>You can comment out any part of the template using the <code>{{'{# ... #}'}}</code> delimiters. 
@@ -87,25 +89,27 @@
 	rendered output of one template into another.</p>
 	<pre>{{ 
 '
-Top Content
-{% include "advertisement" %}
-Bottom Content
-{% include "footer" %}
+<div class="sidebar">
+	{% include "secondaryNavigation" %}
+	{% include "advertisement" %}
+</div>
 '
 		| trim | escape }}</pre>
 	
 	<h3>Template Inheritance</h3>
-	<p>Template inheritance is the most powerful feature of Pebble. It allows you to build a 
-	base template that contains all the common elements of your site and defines <strong>blocks</strong>
-	that child templates can override.</p>
-	<p>First let us look at an example of a base template:</p>
+	<p>Template inheritance is the most powerful feature of Pebble. It allows templates
+	to override sections of their parent template. In your parent template you define "blocks"
+	which are the sections that are allowed to be overriden.</p>
+	<p>First let us look at an example of a parent template:</p>
 	<pre>{{ '
 <html>
 <head>
 	<title>{% block title %}My Website{% endblock %}</title>
 </head>
 <body>
-	<div id="content">{% block content %}{% endblock %}</div>
+	<div id="content">
+		{% block content %}{% endblock %}
+	</div>
 	<div id="footer">
 		{% block footer %}
 			Copyright 2013
@@ -115,50 +119,60 @@ Bottom Content
 </html>
 ' | trim | escape }}</pre>
 	<p>In the above example, we have used the <code><a href="../tag/block">block</a></code> tag
-	to define several blocks that child templates can fill in. All the <code>block</code> tag does is
-	tell the template engine that a child template may override those portions of the template.</p>
+	to define several blocks that child templates override.</p>
 	
 	<p>A child template might look like this:</p>
 			<pre>{{ '
-{% extends "base" %}
+{% extends "parent" %}
 
 {% block title %} Home {% endblock %}
+
 {% block content %}
 	<h1> Home </h1>
 	<p> Welcome to my home page.</p>
 {% endblock %}
 ' | trim | escape }}</pre>
-	<p>The first line uses the <code><a href="../tag/extends">extends</a></code> tag to inform
-	the Pebble engine that our base template will be the parent template. The <code>extends</code>
-	tag should be the first tag in the template and there can only be one.</p> 
+	<p>The first line uses the <code><a href="../tag/extends">extends</a></code> tag to declare
+	the parent template. The <code>extends</code> tag should be the first tag in the template and there can only be one.</p> 
 	
-	<p>Note that since the child template doesn't define the <code>footer</code> block, the value from
-	the parent is used instead. It is also possible to render the contents of a parent block by using
-	the <code><a href="../function/parent">parent</a></code> function.
+	<p>In the above example, because the child template doesn't override the <code>footer</code> block, the value from
+	the parent is used instead. Rendering the child template will produce the following output:</p>
+		<pre>{{ '
+<html>
+<head>
+	<title>Home</title>
+</head>
+<body>
+	<div id="content">
+		<h1> Home </h1>
+		<p> Welcome to my home page.</p>
+	</div>
+	<div id="footer">
+		Copyright 2013
+	</div>
+</body>
+</html>
+' | trim | escape }}</pre>
 	
 	<h3>Macros</h3>
-	<p>Macros are comparable with functions in regular programming languages. They are useful to reuse 
-	often used HTML fragments to not repeat yourself.</p>
-	<p>A macro is defined via the <code><a href="../tag/macro">macro</a></code> tag. First let us look
-	at an example of how the macro is defined:</p>
+	<p>Macros are lightweight and reusable template fragments. They are similar to functions in that they
+	can accept multiple arguments.</p>
+	<p>A macro is defined via the <code><a href="../tag/macro">macro</a></code> tag:</p>
 	<pre>{{ '
 {% macro input(type, name, value) %}
 	<input type="{{ type }}" name="{{ name }}" value="{{ value }}" />
 {% endmacro %}
 ' | trim | escape }}</pre>
-	<p>And now how that macro would be invoked:</p>
+	<p>And the macro will be invoked just like a function:</p>
 	<pre>{{ '
 {{ input("text", "name", "Mitchell") }}
 ' | trim | escape }}</pre>
-	<p>To use macros located in another template, you must <code><a href="../tag/import">import</a></code> 
-	the other template:
-	<pre>{{ '
-{% import "form_util" %}
-{{ input("text", "name", "Mitchell") }}
-' | trim | escape }}</pre>
+	<p>Child templates will have access to macros defined in a parent template. To use macros located in 
+	a completely unrelated template, you must can use the <code><a href="../tag/import">import</a></code> 
+	tag. A macro does not have access to the main context; the only variables it can access are it's arguments.</p>
 	
 	<h3>Expressions</h3>
-	<p>Expressions are a large part of Pebble templates and are very similar to expressions found in Java.</p>
+	<p>Expressions in a Pebble template are very similar to expressions found in Java.</p>
 	
 	<h4>Literals</h4>
 	<p>The simplest form of expressions are literals. Literals are representations for Java types
@@ -166,10 +180,9 @@ Bottom Content
 	<ul>
 		<li><code>"Hello World"</code>: Everything between two double or single quotes is a string. You can use a backslash (<code>\</code>)
 		to escape quotation marks within the string.</li>
-		<li><code>100 * 2.5</code>: Integers and floating point numbers are created by just writing the number down. If a dot
-		is present the number is a double, otherwise an integer.</li>
+		<li><code>100 * 2.5</code>: Integers and floating point numbers are similar to their Java counterparts.</li>
 		<li><code>true / false</code>: Boolean values equivalent to their Java counterparts.</li>
-		<li><code>null</code>: Represents no specific value similar to it's Java counterpart. <code>none</code> is an alias for null.</li>
+		<li><code>null</code>: Represents no specific value, similar to it's Java counterpart. <code>none</code> is an alias for null.</li>
 	</ul>
 	
 	<h4>Math</h4>
@@ -185,21 +198,26 @@ Bottom Content
 	<h4>Logic</h4>
 	<p>You can combine multiple expressions with the following operators:
 	<ul>
-		<li><code>and</code>: Retursn true if the left and right operands are both true.
+		<li><code>and</code>: Returns true if the left and right operands are both true.
 		<li><code>or</code>: Returns true if the left or the right operand is true.
-		<li><code>not</code>: Negates a statement.
+		<li><code>not</code>: Negates an expression.
 		<li><code>(...)</code>: Groups an expression.
 	</ul>
 	
 	<h4>Comparisons</h4>
 	<p>The following comparison operators are supported in any expression: <code>==</code>, <code>!=</code>, <code>&lt;</code>, 
 	<code>&gt;</code>, <code>&gt;=</code>, and <code>&lt;=</code>.
+	<pre>{{ '
+{% if user.age >= 18 %}
+	...
+{% endif %}
+' | trim | escape }}</pre>
 	
 	<h4>Tests</h4>
-	<p>The <code>is</code> operator performs tests. Tests can be used to test a variable against a common expression. The right
+	<p>The <code>is</code> operator performs tests. Tests can be used to test an expression for certain qualities. The right
 	operand is the name of the test:</p>
 	<pre>{{ '
-{% if age is odd %}
+{% if 3 is odd %}
 	...
 {% endif %}
 ' | trim | escape }}</pre>
@@ -209,13 +227,10 @@ Bottom Content
 	...
 {% endif %}
 ' | trim | escape }}</pre>
-	<p>Go to the <a href="../test">tests</a> page to learn more.</p>		
+	<p>Check out the built-in <a href="../test">tests</a>.</p>		
 		
-	<h4>Other Operators</h4>
-	<ul>
-		<li><code>|</code>: Applies a <a href="../filter">filter</a></li>
-		<li><code>?:</code>: Conditional (ternary) operator:</li>
-	</ul>
+	<h4>Conditional (Ternary) Operator</h4>
+	<p>The conditional operator is similar to it's Java counterpart:</p>
 	<pre>{{ '
 {{ foo ? "yes" : "no" }}
 ' | trim | escape }}</pre>

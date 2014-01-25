@@ -70,3 +70,7 @@
 {% macro navItem(contextRoot, name, href, active) %}
 	<li class="{{ active? "active" : "" }}"><a href="/{{contextRoot}}/{{ href }}">{{ name }}</a></li>
 {% endmacro %}
+
+{% macro api(version, package, name) %}
+	<code><a href="http://mbosecke.github.io/pebble/{{ version }}/apidocs/com/mitchellbosecke/pebble/{{ package is null? '': package + '/' }}{{ name }}.html" target="_blank">{{ name }}</a></code>
+{% endmacro %}

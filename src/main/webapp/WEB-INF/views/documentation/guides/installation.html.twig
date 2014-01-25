@@ -45,7 +45,7 @@
   			<div class="tab-pane active" id="spring">
   				<p>
   					First and foremost, make sure your templates are on the classpath (ex. /WEB-INF/templates/).
-  					Then simply define a <code>PebbleEngine</code> bean and a <code>PebbleViewResolver</code> in 
+  					Then simply define a {{ api(currentVersion, null, 'PebbleEngine') }} bean and a <code>PebbleViewResolver</code> in 
   					your servlet config.
   					<pre class="xml">{{ '
 
@@ -57,7 +57,7 @@
 </bean>
 
 <bean id="viewResolver" class="com.mitchellbosecke.pebble.spring.PebbleViewResolver">
-	<property name="prefix" value="\WEB-INF\views\" />
+	<property name="prefix" value="\WEB-INF\templates\" />
 	<property name="suffix" value=".html.peb" />
 	<property name="pebbleEngine" ref="pebbleEngine" />
 </bean>		
@@ -75,35 +75,27 @@
   					You will need to create two objects, a Loader which will find and 
   					read your templates, and a PebbleEngine which will compile and render
   					your templates. Pebble comes with a default loader but you can feel
-  					free to implement <code>com.mitchellbosecke.pebble.loader.Loader</code>
+  					free to implement {{ api(currentVersion, 'loader', 'Loader') }}
   					yourself if you wish.
   					
   					<pre class="java">{{ '
 
-Loader loader = new PebbleDefaultLoader();
+Loader loader = new DefaultLoader();
 PebbleEngine engine = new PebbleEngine(loader);
 
-PebbleTemplate compiledTemplate = engine.loadTemplate("templateName");
+PebbleTemplate compiledTemplate = engine.compile("templateName");
 
-Map<String, Object> context = new HashMap<>();
-String output = compiledTemplate.render(context);
+Writer writer = new StringWriter();
+compiledTemplate.render(writer);
+
+String output = writer.toString();
 				' | trim | escape }}</pre> 
-				</p>
-				
-				<p>
-					The <code>PebbleDefaultLoader</code> class will use multiple techniques to find
-					your templates:
-					<ul>
-						<li><code>Thread.currentThread().getContextClassLoader().getResourceAsStream(...)</code></li>
-						<li><code>PebbleDefaultLoader.class.getClassLoader().getResourceAsStream(...)</code></li>
-						<li><code>file = new File(...)</code></li>
-					</ul>
 				</p>
 			</div>
 		</div>
 		
 		
-		<h3>Settings</h3>
+		<h3>Pebble Engine Settings</h3>
 		<p>
 			<dl class="dl-horizontal">
 				<dt>strictVariables</dt>
@@ -115,10 +107,17 @@ String output = compiledTemplate.render(context);
 					Default: <strong>false</strong>
 				<dt>cache</dt>
 				<dd>
-					An implementation of the <code>Cache</code> interface that the Pebble engine will use
+					An implementation of the {{ api(currentVersion, 'cache', 'TemplateLoadingCache') }} interface that the Pebble engine will use
 					to cache compiled templates. 
 					<br> 
-					Default: <strong>A default in-memory cache implementation</strong> 
+					Default: {{ api(currentVersion, 'cache', 'DefaultTemplateLoadingCache') }}
+				</dd>
+				<dt>loader</dt>
+				<dd>
+					An implementation of {{ api(currentVersion, 'loader', 'Loader') }} interface which is used to
+					find and read templates.
+					<br>
+					Default: {{ api(currentVersion, 'loader', 'DefaultLoader') }}
 				</dd>
 				<dt>executorService</dt>
 				<dd>
