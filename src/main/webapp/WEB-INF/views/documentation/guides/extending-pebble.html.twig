@@ -6,15 +6,15 @@
 	<h3>Overview</h3>
 	<p>
 		Pebble was designed to be flexible and accomodate the requirements of any project. You
-		can add your own tags, operators, filters, and tests. All of these are quite trivial to
-		implement except for custom tags but fortunately it's very rare to require a custom tag. 
+		can add your own tags, functions, operators, filters, tests, and global variables. 
+		The majority of these are quite trivial to implement. 
 	</p>
 	
 	<p>
-		To create an extension create a
-		class that implements <code>com.mitchellbosecke.pebble.extension.Extension</code>. For your
+		Begin by creating a 
+		class that implements {{ api(currentVersion, 'extension', 'Extension') }}. For your
 		own convenience, I recommend extending 
-		<code>com.mitchellbosecke.pebble.extension.AbstractExtension</code> if you can. After 
+		{{ api(currentVersion, 'extension', 'AbstractExtension') }} if you can. After 
 		implementing the required methods, register your extension with the PebbleEngine 
 		before compiling any templates:
 		<pre>{{ '
@@ -24,14 +24,13 @@ engine.addExtension(new MyCustomExtension());' | trim | escape }}</pre>
 
 	<h3>Filters</h3>
 	<p>
-		A filter is designed to modify existing data, not provide new data. To provide
+		A filter is designed to modify existing data, not provide new data. To create
 		custom filters, implement the <code>getFilters()</code> method of your extension which
-		will return a <code>List</code> of <code>com.mitchellbosecke.pebble.filter.Filter</code> objects. 
-		The	<code>Filter</code> interface requires two methods, one which simply returns the name
-		of the filter and the other is the actual application of the filter. The <code>apply(...)</code> method
-		will be given an <code>Object</code> which is the data to be filtered as well as a 
-		<code>List&lt;Object&gt;</code> containing any other arguments the user may have
-		provided. Here is an example of how the <code><a href="../filter/upper">upper</a></code>
+		will return a <code>List</code> of {{ api(currentVersion, 'extension', 'Filter') }} objects. 
+		The	{{ api(currentVersion, 'extension', 'Filter') }} interface requires two methods, one which simply returns the name
+		of the filter and the other being the actual application of the filter. The first argument of the <code>apply(...)</code> method
+		is the data to be filtered and the second argument is the list of arguments the user may have provided. Because Pebble is dynamically typed, you will
+		have to downcast the arguments to the desired type. Here is an example of how the <code><a href="../filter/upper">upper</a></code>
 		filter might be implemented:
 		<pre>{{ '
 public UpperFilter implements Filter {
@@ -41,6 +40,9 @@ public UpperFilter implements Filter {
 	}
 	
 	public Object apply(Object input, List<Object> args){
+		if(input == null){
+			return null;
+		}
 		String str = (String) input;
 		return str.toUpperCase();
 	}
@@ -52,13 +54,12 @@ public UpperFilter implements Filter {
 	<p>
 		Adding custom tests is very similar to custom filters. Implement the <code>getTests()</code>
 		method within your extension which will return a <code>List</code> of 
-		<code>com.mitchellbosecke.pebble.test.Test</code> objects.
-		The	<code>Test</code> interface requires two methods, one which simply returns the name
-		of the test and the other is the actual application of the test which returns a boolean value. 
-		The <code>apply(...)</code> method
-		will be given an <code>Object</code> which is the data to be tested as well as a 
-		<code>List&lt;Object&gt;</code> containing any other arguments the user may have
-		provided. Here is an example of how the <code><a href="../test/even">even</a></code>
+		{{ api(currentVersion, 'extension', 'Test') }} objects.
+		The	{{ api(currentVersion, 'extension', 'Test') }} interface requires two methods, one which simply returns the name
+		of the test and the other being the actual application of the test which returns a boolean value. 
+		The first argument of the <code>apply(...)</code> method is the data to be tested and the
+		second argument is the list of arguments the user may have provided.
+		 Here is an example of how the <code><a href="../test/even">even</a></code>
 		test might be implemented:
 		<pre>{{ '
 public EvenTest implements Test {
@@ -67,7 +68,7 @@ public EvenTest implements Test {
 		return "even";
 	}
 	
-	public Boolean apply(Object input, List<Object> args){
+	public boolean apply(Object input, List<Object> args){		
 		Integer in = (Integer) input;
 		return (in % 2 == 0);
 	}
@@ -75,26 +76,79 @@ public EvenTest implements Test {
 }' | trim | escape }}</pre>
 	</p>
 	
+	<h3>Functions</h3>
+	<p>
+		Adding functions is also very similar to custom filters. First and foremost, it's important
+		to understand the different intentions behind a function and a filter because it can often be
+		ambiguous which one should be implemented. A filter is intended to modify existing content
+		where a filter is moreso intended to produce new content. 
+	</p>
+	<p>
+		To add functions, implement the <code>getFunctions()</code>
+		method within your extension which will return a <code>List</code> of 
+		{{ api(currentVersion, 'extension', 'SimpleFunction') }} objects.
+		The	{{ api(currentVersion, 'extension', 'SimpleFunction') }} interface requires two methods, one which simply returns the name
+		of the function and the other being the actual application of the function. 
+		The only argument of the <code>execute(...)</code> method is a list of arguments the user may have provided.
+		 Here is an example of how a fictional <code>fibonacciString</code> function  
+		might be implemented:
+		<pre>{{ '
+public FibonnaciStringFunction implements SimpleFunction() {
+
+		public String getName() {
+			return "fibonacciString";
+		}
+
+		public Object execute(List<Object> args) {
+			Integer length = (Integer)args.get(0);
+			Integer prev1 = 0;
+			Integer prev2 = 1;
+			
+			StringBuilder result = new StringBuilder();
+			
+			result.append("01");
+			
+			for(int i = 2; i < length; i++){
+				Integer next = prev1 + prev2;
+				result.append(next);
+				prev1 = prev2;
+				prev2 = next;
+			}
+			return result.toString();
+
+		}
+}' | trim | escape }}</pre>
+	</p>
+	
+	<h3>Global Variables</h3>
+	<p>
+		Adding global variables, which are variables that are accessbile to all templates, is very trivial. In your
+		custom extension, implement the <code>getGlobalVariables()</code> method which returns
+		a <code>Map&lt;String,Object&gt;</code>. The contents of this <code>Map</code> will be 
+		merged into the context you provide to each template at the time of rendering.
+	</p>
+	
 	<h3>Operators</h3>
 	<p>
+		Operators are more complex to implement than filters or tests. 
 		To add custom operators, implement the <code>getBinaryOperators()</code>
-		or the <code>getUnaryOperators()</code> method in your extension, or both.
-		These methods each return a <code>List</code> of either
-		<code>com.mitchellbosecke.pebble.operator.BinaryOperator</code> or 
-		<code>com.mitchellbosecke.pebble.operator.UnaryOperator</code> objects.
+		or the <code>getUnaryOperators()</code> method in your extension, or both. 
+		These methods return a <code>List</code> of 
+		{{ api(currentVersion, 'operator', 'BinaryOperator') }} or 
+		{{ api(currentVersion, 'operator', 'UnaryOperator') }} objects, respectively.
 	</p>
 	<p>
 		Binary operators require the following information:
 		<ul>
-			<li>Precedence: an integer relative to other operators which defines order of operations.</li>
+			<li>Precedence: an integer relative to other operators which defines the order of operations.</li>
 			<li>Symbol: a String representing the actual operator. This is typically a single character but doesn't have to be.</li>
-			<li>Node Class: A class which extends <code>com.mitchellbosecke.pebble.node.expression.NodeExpressionBinary</code> which handles compilation.</li>
+			<li>Node Class: A {{ api(currentVersion, 'node', 'Node') }} implementation which extends {{ api(currentVersion, 'node/expression', 'NodeExpressionBinary') }}. This class is responsible for the compilation of your operator to Java.</li>
 			<li>Associativity: Either left or right depending on how the operator is used.</li>
 		</ul>
 	</p>
 	<p>
-		A unary operator is much the same except it's node class must be a class that extends
-		<code>com.mitchellbosecke.pebble.node.expression.NodeExpressionUnary</code> and
+		A unary operator is much the same except it's node class must extend
+		{{ api(currentVersion, 'node/expression', 'NodeExpressionUnary ') }} and
 		there is no associativity.
 	</p>
 	<p>
@@ -146,8 +200,8 @@ public AdditionOperator implements BinaryOperator {
 }' | trim | escape }}</pre>
 	<p>
 		Alongside each Operator class you will also need to implement a corresponding
-		Node class which defines how the operator gets compiled into Java. The above
-		example references <code>AdditionNode.class</code>. 
+		{{ api(currentVersion, 'node', 'Node') }} class which defines how the operator gets compiled into Java. The above
+		example references a fictional <code>AdditionNode.class</code>. 
 	</p>
 	<p> 
 		Here is what the <code>AdditionNode</code> class might look like:
@@ -165,45 +219,34 @@ public AdditionNode extends NodeExpressionBinary {
 
 }' | trim | escape }}</pre>
 	<p>
-		In the above example you will notice that children of NodeExpressionBinary
-		have access to two other node classes, <code>leftExpression</code>, and 
-		<code>rightExpression</code>.
-	<p>
-		Although your node class only has to extend <code>NodeExpressionBinary</code>,
-		I suggest extending <code>NodeExpressionBinarySimple</code> to help	you out with compilation. 
-		In that case, <code>AdditionNode</code> would look like the following:
-	</p>
-	<pre>{{ '
-public AdditionNode extends NodeExpressionBinarySimple {
-
-	public void operator(Compiler compiler){
-		compiler.raw("+");
-	}
-
-}' | trim | escape }}</pre>
-	<p>
-		The compiler uses the builder design pattern and provides methods
-		that helps the developer generate beautiful and readable Java code:
+		The provided {{ api(currentVersion, 'compiler', 'Compiler') }} object uses the builder design pattern and provides methods
+		to help you generate beautiful and readable Java code:
 	
 		<ul>
-			<li><code>subcompile()</code>: Compiles a node.</li>
-			<li><code>write()</code>: Writes the given string, prefixed with indentation.</li>
-			<li><code>raw()</code>: Writes the given string as is.</li>
-			<li><code>string()</code>: Writes a quoted Java string.</li>
+			<li><code>subcompile(Node node)</code>: Compiles a node.</li>
+			<li><code>write(String string)</code>: Writes the given string, prefixed with indentation.</li>
+			<li><code>raw(String string)</code>: Writes the given string as is.</li>
+			<li><code>string(String string)</code>: Writes a quoted Java string.</li>
 			<li><code>indent()</code>: Increases the indentation.</li>
 			<li><code>outdent()</code>: Decreases the indentation.</li>
 		</ul>
+	</p>
+	<p>
+		In the above example you will notice that children of NodeExpressionBinary
+		have access to two other node classes, <code>leftExpression</code>, and 
+		<code>rightExpression</code>; these are the operands of your operator.
 	</p>
 	
 	<h3>Tags</h3>
 	<p>
 		Creating new tags is one of the most powerful abilities of Pebble although it is
 		not trivial. Your extension should start by implementing the <code>getTokenParsers()</code>
-		method. A TokenParser is responsible for converting all necessary tokens to 
-		appropriate Nodes. The Nodes are then responsibile for compiling themselves into Java code.
+		method. A {{ api(currentVersion, 'tokenParser', 'TokenParser') }} is responsible for converting all necessary 
+		tokens to appropriate Nodes. A token is a whitespace delimited group of characters found in a the template
+		and a {{ api(currentVersion, 'node', 'Node') }} is a Pebble class that is responsible for compiling itself to Java.
 	</p>
 	<p>
-		Let us look at an example of a TokenParser:
+		Let us look at an example of a {{ api(currentVersion, 'tokenParser', 'TokenParser') }}:
 	</p>
 		<pre>{{ '
 public SetTokenParser extends AbstractTokenParser {
@@ -232,12 +275,13 @@ public SetTokenParser extends AbstractTokenParser {
 
 }' | trim | escape }}</pre>
 	<p>
-		The <code>getTag()</code> method must return the tag we want to parse.
-		This example is parsing the <code>set</code> keyword.
+		The <code>getTag()</code> method must return the name of the tag. Pebble's main parser
+		will use this name to determine when to delegate responsibility to your custom TokenParser.
+		This example is parsing the <code>set</code> tag.
 	</p>
 	<p>
 		The parse method is invoked whenever the primary parser encounters a 
-		<code>set</code> tag. It should return one <code>Node</code> instance
+		<code>set</code> token. This method should return one {{ api(currentVersion, 'node', 'Node') }} instance
 		which may or may not contain children nodes. Creating Nodes was described
 		above, in the section on how to create custom operators.
 	</p>
@@ -246,10 +290,10 @@ public SetTokenParser extends AbstractTokenParser {
 		the tools used, as well as some examples. Here is a list of classes I 
 		suggest reading:
 		<ul>
-			<li><code>com.mitchellbosecke.pebble.tokenParser.TokenParser</code></li>
-			<li><code>com.mitchellbosecke.pebble.parser.Parser</code></li>
-			<li><code>com.mitchellbosecke.pebble.tokenParser.SetTokenParser</code></li>
-			<li><code>com.mitchellbosecke.pebble.tokenParser.BlockTokenParser</code></li>
+			<li><code>{{ api(currentVersion, 'tokenParser', 'TokenParser') }}</code></li>
+			<li><code>{{ api(currentVersion, 'parser', 'Parser') }}</code></li>
+			<li><code>{{ api(currentVersion, 'tokenParser', 'SetTokenParser') }}</code></li>
+			<li><code>{{ api(currentVersion, 'tokenParser', 'BlockTokenParser') }}</code></li>
 		</ul> 
 	</p>
 	
