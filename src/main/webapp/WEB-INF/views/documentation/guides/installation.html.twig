@@ -35,6 +35,17 @@
 </dependency>' | trim | escape }}</pre>
 		</p>
 		
+		<h3>System Requirements</h3>
+		<p>
+			The Pebble engine uses the Java Compiler API in order to compile templates into Java bytecode. This
+			means that a JDK is required as opposed to a standard JRE.
+		</p>
+		<p>
+			Pebble has been tested to work in Tomcat 7, Jetty 9, and Glassfish 3. It does however fail to work 
+			in JBoss AS 7 and Glassfish 4 (see <a href="https://github.com/mbosecke/pebble/issues">known issues</a>).
+			Pebble does not need to be run inside of a container.
+		</p>
+		
 		<h3>Configuration</h3>
 		
 		<ul class="nav nav-tabs">
