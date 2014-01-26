@@ -3,8 +3,28 @@
 {% block guideTitle %}Basic Usage{% endblock %}
 
 {% block guideContent %}
-	
+	<h3>Introduction</h3>
+	<p>
+		Pebble templates can be used to generate any sort of textual output. Typically it is
+		used to generate HTML but it can also be used to create CSS, XML, JS, or any other text-based output. 
+		A template itself will contain whatever language you are attempting to output alongside
+		Pebble-specific features and syntax. Here is a simple example that will generate a trivial HTML
+		page: 
+	</p>
+<p><pre>{{ '
+<html>
+	<head>
+		<title>{{ websiteTitle }}</title>
+	</head>
+	<body>
+		{{ content }}
+	</body>
+</html>' | trim | escape }}</pre>
+	</p>
 	<h3>Syntax Reference</h3>
+	
+	<p>The templates themselves will be filled with whatever text-based language you are generated
+	and will be intermingled 
 	<p>There are only two main delimiters used within a Pebble template: 
 	<code>{{'{{ ... }}'}}</code> and <code>{{'{% ... %}'}}</code>. The first set of delimiters
 	will output the result of an expression. Expressions can be very simple (ex. a variable name)
@@ -12,7 +32,8 @@
 	flow of the template; it can contain an if-statement, define a parent template, define a new block, etc. </p>
 	
 	<h3>Variables</h3>
-	<p>When a template is rendered, it is provided with a bunch of variables to play around with. You can use the dot (.) notation to access fields of a variable. </p>
+	<p>When a template is rendered, it is provided with a bunch of variables to work with, referred to as the context. 
+	You can print variables directly to the output or use the dot (.) notation to access attributes of a variable. </p>
 	<p><pre>{{ '
 {{ foo.bar }}' | trim | escape }}</pre>
 	</p>
@@ -30,6 +51,7 @@
 			<li>If <code>foo</code> is a <code>Map</code>, <code>foo.get("bar")</code>.</li>
 			<li><code>foo.getBar()</code></li>
 			<li><code>foo.isBar()</code></li>
+			<li><code>foo.hasBar()</code></li>
 			<li><code>foo.bar()</code></li>
 			<li><code>foo.bar</code></li>
 		</ul>
@@ -42,7 +64,10 @@
 	<p><pre>{{ '
 {{ "If life gives you lemons, eat lemons." | upper | abbreviate(13) }}' | trim | escape }}</pre>
 	</p>
-	<p>The above example will output "IF LIFE GI..."</p>
+	<p>The above example will output the following:</p>
+	<p><pre>{{ '
+IF LIFE GI...' | trim | escape }}</pre>
+	</p>
 	<p>Check out the built-in <a href="../filter">filters</a>.</p>
 	
 	

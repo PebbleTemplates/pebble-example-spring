@@ -6,6 +6,7 @@ body{ padding-top:50px; font-size:16px;}
 .pebble-header{ text-align:left; padding:30px 15px 40px; text-shadow:0 1px 0 rgba(0,0,0,.15); background-color:#00769B; color:#DDF3FF;}
 .pebble-header h1, .pebble-header p { margin-right: 380px; }
 .pebble-header h1 { font-size:60px; line-height:1; color:#fff; }
+.pebble-header h1 small { color:#bebebe; }
 a.version-number{font-size:14px;}
 
 .pebble-header a.version-number , .pebble-nav .navbar-nav>li>a{ color:#D5EFFF; text-decoration:none;}
@@ -31,10 +32,11 @@ p { line-height:1.6em;}
 a { color:#008DC4; text-decoration:underline;}
 dd {margin-bottom:20px;}
 a.btn, .nav-tabs>li>a { text-decoration:none;}
+code { color: #4E526B; }
 
 /* HOME PAGE */
 .pebble-what { background: #e4f0f1; padding:60px 0;}
-pre.pebble-code-preview { height:250px; border-radius:125px; font-size:21px; overflow:hidden;padding-left:92px; padding-top:28px;}
+pre.pebble-code-preview { height:250px; border-radius:125px; font-size:18px; overflow:hidden;padding-left:75px; padding-top:28px;}
 .pebble-features { padding:60px 0;}
 .pebble-primary-features { margin-top:40px; }
 .pebble-primary-features p.primary-feature-icon{ text-align:center; }

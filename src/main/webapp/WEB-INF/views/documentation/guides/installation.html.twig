@@ -101,8 +101,7 @@ String output = writer.toString();
 				<dt>strictVariables</dt>
 				<dd>
 					If set to true, Pebble will throw an exception if you try to access a variable or attribute
-					that does not exist. If set to false, Pebble will continue to render templates as best as it 
-					can (typically by treating the non-existent variable as an empty string). 
+					that does not exist. If set to false, your template won't skip a beat. 
 					<br>
 					Default: <strong>false</strong>
 				<dt>cache</dt>
@@ -114,7 +113,7 @@ String output = writer.toString();
 				</dd>
 				<dt>loader</dt>
 				<dd>
-					An implementation of {{ api(currentVersion, 'loader', 'Loader') }} interface which is used to
+					An implementation of the {{ api(currentVersion, 'loader', 'Loader') }} interface which is used to
 					find and read templates.
 					<br>
 					Default: {{ api(currentVersion, 'loader', 'DefaultLoader') }}

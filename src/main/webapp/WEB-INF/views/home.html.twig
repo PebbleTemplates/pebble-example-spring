@@ -6,13 +6,14 @@
 {% endblock navigation %}
 
 {% block pageheader %}
-	<h1>Pebble</h1> 
-    <p>A modern Java templating engine that goes lightning fast.</p>
+	<h1>Pebble <small>(BETA)</small></h1> 
+    <p>A lightweight but rock solid Java templating engine.</p>
     <p>
-		<a class="btn btn-success btn-lg" href="documentation/guide/installation">Get started</a>
+		<a class="btn btn-success btn-lg" href="documentation/guide/installation">Installation</a>
+		<a class="btn btn-primary btn-lg" href="documentation/guide/basic-usage">Basic Usage</a>
 	</p>
 	<p>
-		Version: <a class="version-number" href="http://blog.pebble.mitchellbosecke.com">{{ currentVersion }} (BETA)</a>
+		Version: <a class="version-number" href="http://blog.pebble.mitchellbosecke.com">{{ currentVersion }}</a>
 	</p>
 {% endblock pageheader %}
 
@@ -34,10 +35,11 @@
 <pre class="pebble-code-preview"><code>{{
 '{% extends "base" %}	
 
-{% block navigation %}
-	{% set activeNav = "Home" %}
-	{{ parent() }}
-{% endblock navigation %}' 
+{% parallel %}
+	{% for user in users %}
+		{{ user.name | capitalize }}
+	{% endfor %}
+{% endparallel %}' 
 }}</code></pre>
 			    </div>
 		    </div>
@@ -55,8 +57,8 @@
 					<h4>Simple Logic</h4>
 				    <p>
 				    	Pebble gives you the ability to iterate through collections,
-				    	use if statements, conditional operators, and manipulate variables
-				    	all with a very concise and easy-to-read syntax. Pebble provides
+				    	use <code>if</code> statements, and test variables for certain
+				    	qualities all with a very concise and easy-to-read syntax. Pebble provides
 				    	only the minimal amount of logic necessary to create dynamic 
 				    	templates while avoiding the burden of carrying too much of your 
 				    	business logic.
@@ -88,14 +90,25 @@
 				<dl class="dl-horizontal">
 					<dt>Filters & Tests</dt>
 					<dd>There are numerous built in filters that allow you to quickly abbreviate text, 
-				    	capitalize words, format dates, encode json, provide defaults to 
+				    	capitalize words, format dates, provide defaults to 
 				    	null values, and much more. Beyond filters there are also "tests"
 				    	to check if your variables are null, even, odd, iterable, etc. 
 			    	</dd>
 			    	<dt>Extensibility</dt>
 					<dd>Pebble was built with the philosophy that it should 
 						be able to adapt to any project. Create your own tags, filters, tests, 
-						functions, and even operators. 
+						functions, and even operators. Feel free to also use your own template loader
+						implementation as well as your own template cache. It's <em>your</em> application so do it 
+						<em>your</em> way.
+			    	</dd>
+			    	<dt>Performance</dt>
+					<dd>Pebble templates work very well in highly concurrent environments. Using
+						multiple threads for the evaluation of a single template allow for low
+						latency evaluations.
+			    	</dd>
+			    	<dt>Documented</dt>
+					<dd>All features are well documented with numerous examples. There are also recipes
+						for some more advanced techniques.
 			    	</dd>
 				</dl>
 			</div>

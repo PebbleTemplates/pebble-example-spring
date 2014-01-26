@@ -4,7 +4,7 @@
 	<p>
 		The <code>block</code> function is used to render the contents of a block more than
 		once. It is not to be confused with the 
-		<code><a href="../tag/block">block</a></code> <strong>tag</strong> which is used to declare blocks.  
+		<code><a href="../tag/block">block</a></code> <em>tag</em> which is used to declare blocks.  
 	</p>
 	
 	<p>
@@ -34,7 +34,7 @@ content
 		It is typically okay for a block to use the <code><a href="../tag/flush">flush</a></code> tag which
 		will flush the already-rendered content to the user-provided <code>Writer</code> but the 
 		<code>block</code> function will internally use it's own <code>StringWriter</code> and therefore
-		flushing inside the block will no longer do no good.
+		flushing inside the block will no longer do any good (nor will it do harm).
 	</p>
 
 
