@@ -98,12 +98,6 @@ String output = writer.toString();
 		<h3>Pebble Engine Settings</h3>
 		<p>
 			<dl class="dl-horizontal">
-				<dt>strictVariables</dt>
-				<dd>
-					If set to true, Pebble will throw an exception if you try to access a variable or attribute
-					that does not exist. If set to false, your template won't skip a beat. 
-					<br>
-					Default: <strong>false</strong>
 				<dt>cache</dt>
 				<dd>
 					An implementation of the {{ api(currentVersion, 'cache', 'TemplateLoadingCache') }} interface that the Pebble engine will use
@@ -111,12 +105,13 @@ String output = writer.toString();
 					<br> 
 					Default: {{ api(currentVersion, 'cache', 'DefaultTemplateLoadingCache') }}
 				</dd>
-				<dt>loader</dt>
+				<dt>defaultLocale</dt>
 				<dd>
-					An implementation of the {{ api(currentVersion, 'loader', 'Loader') }} interface which is used to
-					find and read templates.
+					The default locale which will be passed to each compiled template. The templates then use this
+					locale for functions such as <code><a href="../function/message">message</a></code>, etc. A
+					template can also be given a unique locale during evaluation.
 					<br>
-					Default: {{ api(currentVersion, 'loader', 'DefaultLoader') }}
+					Default: <strong><code>Locale.getDefault()</code></strong>
 				</dd>
 				<dt>executorService</dt>
 				<dd>
@@ -125,6 +120,19 @@ String output = writer.toString();
 					<br> 
 					Default: <strong>null</strong> 
 				</dd>
+				<dt>loader</dt>
+				<dd>
+					An implementation of the {{ api(currentVersion, 'loader', 'Loader') }} interface which is used to
+					find and read templates.
+					<br>
+					Default: {{ api(currentVersion, 'loader', 'DefaultLoader') }}
+				</dd>
+				<dt>strictVariables</dt>
+				<dd>
+					If set to true, Pebble will throw an exception if you try to access a variable or attribute
+					that does not exist. If set to false, your template won't skip a beat. 
+					<br>
+					Default: <strong>false</strong>
 			</dl>
 		</p>
 		

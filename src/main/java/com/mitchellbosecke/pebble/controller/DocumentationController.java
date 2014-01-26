@@ -106,9 +106,10 @@ public class DocumentationController extends BaseController {
 	private List<String> getFunctionList() {
 		List<String> list = new ArrayList<>();
 		list.add("block");
-		list.add("parent");
-		list.add("min");
 		list.add("max");
+		list.add("message");
+		list.add("min");
+		list.add("parent");
 		return list;
 	}
 
