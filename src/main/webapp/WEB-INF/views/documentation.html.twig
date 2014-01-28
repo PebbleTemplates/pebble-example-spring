@@ -72,10 +72,6 @@
 
 {# MACROS #}
 
-{% macro referenceItem(type, name) %}
-	<li><a href="documentation/{{ type }}/{{ name }}">{{ name }}</a></li>
-{% endmacro %}
-
 {% macro referenceItem(type, name, details) %}
 	<li><a href="documentation/{{ type }}/{{ name }}">{{ name }}</a> {{ details }}</li>
 {% endmacro %}

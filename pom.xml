@@ -12,6 +12,7 @@
 		
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<pebble.version>0.1.5-SNAPSHOT</pebble.version>
 	</properties>
 	
 	<build>
@@ -58,12 +59,12 @@
 		<dependency>
 			<groupId>com.mitchellbosecke</groupId>
 			<artifactId>pebble</artifactId>
-			<version>0.1.4-SNAPSHOT</version>
+			<version>${pebble.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.mitchellbosecke</groupId>
 			<artifactId>pebble-spring3</artifactId>
-			<version>0.1.4-SNAPSHOT</version>
+			<version>${pebble.version}</version>
 		</dependency>
 
 		<dependency>
