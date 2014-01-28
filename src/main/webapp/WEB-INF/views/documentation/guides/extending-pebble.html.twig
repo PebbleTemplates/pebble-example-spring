@@ -26,18 +26,16 @@ engine.addExtension(new MyCustomExtension());' | trim | escape }}</pre>
 	<p>
 		A filter is designed to modify existing data, not provide new data. To create
 		custom filters, implement the <code>getFilters()</code> method of your extension which
-		will return a <code>List</code> of {{ api(currentVersion, 'extension', 'Filter') }} objects. 
-		The	{{ api(currentVersion, 'extension', 'Filter') }} interface requires two methods, one which simply returns the name
-		of the filter and the other being the actual application of the filter. The first argument of the <code>apply(...)</code> method
+		will return a <code>Map</code> of filter names and their corresponding implementations.
+		A filter implementation must implement the {{ api(currentVersion, 'extension', 'Filter') }} interface. 
+		The	{{ api(currentVersion, 'extension', 'Filter') }} interface has only one method to be implemented,
+		<code>apply(Object input, List&lt;Object&gt; args)</code>. 
+		The first argument of this method
 		is the data to be filtered and the second argument is the list of arguments the user may have provided. Because Pebble is dynamically typed, you will
 		have to downcast the arguments to the desired type. Here is an example of how the <code><a href="../filter/upper">upper</a></code>
 		filter might be implemented:
 		<pre>{{ '
 public UpperFilter implements Filter {
-
-	public String getName(){
-		return "upper";
-	}
 	
 	public Object apply(Object input, List<Object> args){
 		if(input == null){
@@ -53,20 +51,16 @@ public UpperFilter implements Filter {
 	<h3>Tests</h3>
 	<p>
 		Adding custom tests is very similar to custom filters. Implement the <code>getTests()</code>
-		method within your extension which will return a <code>List</code> of 
-		{{ api(currentVersion, 'extension', 'Test') }} objects.
-		The	{{ api(currentVersion, 'extension', 'Test') }} interface requires two methods, one which simply returns the name
-		of the test and the other being the actual application of the test which returns a boolean value. 
-		The first argument of the <code>apply(...)</code> method is the data to be tested and the
-		second argument is the list of arguments the user may have provided.
+		method within your extension which will return a <code>Map</code> of test names and their corresponding
+		implementations. A test implementation will implement the {{ api(currentVersion, 'extension', 'Test') }} interface.
+		The	{{ api(currentVersion, 'extension', 'Test') }} interface has only one method to be implemented,
+		<code>apply(Object input, List&lt;Object&gt; args)</code> which returns a <code>boolean</code>. 
+		The first argument of this method
+		is the data to be tested and the second argument is the list of arguments the user may have provided.
 		 Here is an example of how the <code><a href="../test/even">even</a></code>
 		test might be implemented:
 		<pre>{{ '
 public EvenTest implements Test {
-
-	public String getName(){
-		return "even";
-	}
 	
 	public boolean apply(Object input, List<Object> args){		
 		Integer in = (Integer) input;
@@ -85,19 +79,16 @@ public EvenTest implements Test {
 	</p>
 	<p>
 		To add functions, implement the <code>getFunctions()</code>
-		method within your extension which will return a <code>List</code> of 
-		{{ api(currentVersion, 'extension', 'SimpleFunction') }} objects.
-		The	{{ api(currentVersion, 'extension', 'SimpleFunction') }} interface requires two methods, one which simply returns the name
-		of the function and the other being the actual application of the function. 
-		The only argument of the <code>execute(...)</code> method is a list of arguments the user may have provided.
+		method within your extension which will return a <code>Map</code> of function names
+		and their corresponding implementations. A function implementation will implement the
+		{{ api(currentVersion, 'extension', 'SimpleFunction') }} interface.
+		The	{{ api(currentVersion, 'extension', 'SimpleFunction') }} interface has only one method to be implemented,
+		<code>execute(List&lt;Object&gt; args)</code>. 
+		The only argument to this method is a <code>List</code> containing any arguments the user may have provided.
 		 Here is an example of how a fictional <code>fibonacciString</code> function  
 		might be implemented:
 		<pre>{{ '
 public FibonnaciStringFunction implements SimpleFunction() {
-
-		public String getName() {
-			return "fibonacciString";
-		}
 
 		public Object execute(List<Object> args) {
 			Integer length = (Integer)args.get(0);
