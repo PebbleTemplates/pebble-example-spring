@@ -33,14 +33,14 @@
 		    	</div>
 			    <div class="col-md-6">
 <pre class="pebble-code-preview"><code>{{
-'{% extends "base" %}	
-
-{% parallel %}
+'{% block content %}
+	<ul>
 	{% for user in users %}
-		{{ user.name | capitalize }}
+		<li>{{ user.name }}</li>
 	{% endfor %}
-{% endparallel %}' 
-}}</code></pre>
+	</ul>
+{% endblock %}' 
+| trim | escape }}</code></pre>
 			    </div>
 		    </div>
 		</div>
