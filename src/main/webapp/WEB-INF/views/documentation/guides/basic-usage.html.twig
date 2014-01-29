@@ -21,6 +21,43 @@
 	</body>
 </html>' | trim | escape }}</pre>
 	</p>
+	<p>
+		If you were to start a simple project using Pebble, you would begin by writing
+		the above contents into a file located somewhere on your classpath (ex. <code>WEB-INF/templates/home.peb</code>).
+		I often use the <code>peb</code> extension but it's not necessary.
+	</p>
+	<h3>Set Up</h3>
+		
+  		<p>
+  			You will want to begin by creating a {{ api(currentVersion, null, 'PebbleEngine') }} object which is
+  			responsible for compiling your templates.
+		</p>
+  		<pre class="java">{{ '
+PebbleEngine engine = new PebbleEngine();
+				' | trim | escape }}</pre> 
+		<p>
+			And now, with your new <code>PebbleEngine</code> instance you can start compiling templates.
+		</p>
+		
+  		<pre class="java">{{ '
+PebbleTemplate compiledTemplate = engine.compile("templates/home.peb");
+		' | trim | escape }}</pre> 
+		<p>
+			Finally, simply provide your compiled template with a <code>java.io.Writer</code> object and
+			a <code>Map</code> of variables to get your output!
+		</p>
+  		<pre class="java">{{ '
+Writer writer = new StringWriter();
+
+Map<String, Object> context = new HashMap<>();
+context.put("websiteTitle", "My First Website");
+context.put("content", "My Interesting Content");
+
+compiledTemplate.evaluate(writer, context);
+
+String output = writer.toString();
+				' | trim | escape }}</pre> 
+		</p>
 	<h3>Syntax Reference</h3>
 	
 	<p>There are only two main delimiters used within a Pebble template: 
@@ -35,14 +72,6 @@
 	<p><pre>{{ '
 {{ foo.bar }}' | trim | escape }}</pre>
 	</p>
-	<p>If Pebble's <code>strictVariables</code> setting is set to <code>true</code> then an exception will be thrown if either
-	<code>foo</code> or <code>bar</code> are nonexistent or <code>foo</code> is null. By default, <code>strictVariables</code> 
-	is set to <code>false</code> and therefore most expressions are null safe; you can safely write the following without worrying about
-	null variables:</p>
-	<p><pre>{{ '
-{{ foo.bar.baz }}' | trim | escape }}</pre>
-	</p>
-	<p>If any of the above variables are null, the output will be an empty string.</p>
 	<p> Behind the scenes <code>foo.bar</code> will attempt the following techniques to 
 	to access the <code>bar</code> attribute of the <code>foo</code> variable:
 		<ul>
@@ -54,6 +83,32 @@
 			<li><code>foo.bar</code></li>
 		</ul>
 	</p>
+	
+	<h3>Type Safety</h3>
+	<p>
+		Pebble templates are dynamically typed and any possible type safety issues won't occur until
+		the actual runtime evaluation of your templates. Pebble does however allow you to choose
+		how to handle type safety issues with the use of it's <code>strictVariables</code>
+		setting. By default, <code>strictVariables</code> is set to <code>false</code> which means
+		that writing:
+		<pre>{{ '
+{{ foo.bar }}' | trim | escape }}</pre>
+		will output an empty string if the object <code>foo</code> does not actually have an attribute 
+		called <code>bar</code>.
+		If <code>strictVariables</code> is set to <code>true</code>, the above expression would 
+		throw an exception.
+	</p>
+	<p>
+		When <code>strictVariables</code> is set to <code>false</code> your expressions will also
+		become null safe. The following expression will print an empty string even if <code>foo</code>
+		and <code>bar</code> are null:
+		<pre>{{ '
+{{ foo.bar.baz }}' | trim | escape }}</pre>
+	</p>
+	<p>
+		The <code><a href="../filter/default">default</a></code> filter might come in handy for the above situations.
+	</p>
+	
 	<h3>Filters</h3>
 	<p>Variables can be modified with the use of filters. Filters are separated from the variable
 	using a pipe symbol (<code>|</code>) and may have optional arguments in parentheses. Multiple filters can 

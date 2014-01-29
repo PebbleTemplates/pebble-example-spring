@@ -27,4 +27,11 @@ public class MainController extends BaseController{
 		mav.setViewName("license");
 		return mav;
 	}
+	
+	@RequestMapping(value="/contributing", method=RequestMethod.GET)
+	public ModelAndView getContributing() {
+		ModelAndView mav = getMav();
+		mav.setViewName("contributing");
+		return mav;
+	}
 }

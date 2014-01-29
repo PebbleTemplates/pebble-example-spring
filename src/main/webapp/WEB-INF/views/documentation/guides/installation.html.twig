@@ -22,18 +22,6 @@
 	<version>' | trim | escape }} {{ currentVersion }} {{ '</version>
 </dependency>' | trim | escape }}</pre>
 		</p>
-		<p>
-			If you are integrating Pebble with Spring MVC, make sure to include the pebble-spring3 adapter as well.
-			This will provide the necessary <code>ViewResolver</code> and <code>View</code> classes.
-		</p>
-		<p>
-			<pre>{{ '
-<dependency>
-	<groupId>com.mitchellbosecke</groupId>
-	<artifactId>pebble-spring3</artifact>
-	<version>' | trim | escape }} {{ currentVersion }} {{ '</version>
-</dependency>' | trim | escape }}</pre>
-		</p>
 		
 		<h3>System Requirements</h3>
 		<p>
@@ -46,67 +34,63 @@
 			Pebble does not need to be run inside of a container.
 		</p>
 		
-		<h3>Configuration</h3>
+		<h3>Set Up</h3>
+		<p>
+			If you are integrating Pebble with Spring MVC, read <a href="spring-integration">this guide</a>.
+		</p>
 		
-		<ul class="nav nav-tabs">
-			<li class="active"><a href="#spring" data-toggle="tab">Java + Spring MVC</a></li>
-			<li><a href="#java" data-toggle="tab">Java</a></li>
-		</ul>  
-		<div class="tab-content">
-  			<div class="tab-pane active" id="spring">
-  				<p>
-  					First and foremost, make sure your templates are on the classpath (ex. /WEB-INF/templates/).
-  					Then simply define a {{ api(currentVersion, null, 'PebbleEngine') }} bean and a <code>PebbleViewResolver</code> in 
-  					your servlet config.
-  					<pre class="xml">{{ '
-
-<bean id="pebbleEngine" class="com.mitchellbosecke.pebble.PebbleEngine">
-	<property name="strictVariables" value="false" />
-	<property name="loader">
-		<bean class="com.mitchellbosecke.pebble.spring.PebbleTemplateLoader" />
-	</property>
-</bean>
-
-<bean id="viewResolver" class="com.mitchellbosecke.pebble.spring.PebbleViewResolver">
-	<property name="prefix" value="\WEB-INF\templates\" />
-	<property name="suffix" value=".html.peb" />
-	<property name="pebbleEngine" ref="pebbleEngine" />
-</bean>		
+  		<p>
+  			You will want to begin by creating a {{ api(currentVersion, null, 'PebbleEngine') }} which is
+  			responsible for compiling your templates.
+		</p>
+  		<pre class="java">{{ '
+PebbleEngine engine = new PebbleEngine();
 				' | trim | escape }}</pre> 
-				</p>
-				<p>
-					Now the methods in your <code>@Controller</code> annotated classes
-					can simply return the name of the template as you normally would
-					if using JSPs. You can exclude the template file extension if you
-					set it as the "suffix" property of the <code>PebbleViewResolver</code>.
-  				</p>
-  			</div>
-  			<div class="tab-pane" id="java">
-  				<p>
-  					You will need to create two objects, a Loader which will find and 
-  					read your templates, and a PebbleEngine which will compile and render
-  					your templates. Pebble comes with a default loader but you can feel
-  					free to implement {{ api(currentVersion, 'loader', 'Loader') }}
-  					yourself if you wish.
-  					
-  					<pre class="java">{{ '
-
-Loader loader = new DefaultLoader();
-PebbleEngine engine = new PebbleEngine(loader);
-
+		<p>
+			And now, with your new <code>PebbleEngine</code> instance you can start compiling templates.
+		</p>
+		
+  		<pre class="java">{{ '
 PebbleTemplate compiledTemplate = engine.compile("templateName");
-
+		' | trim | escape }}</pre> 
+		<p>
+			Finally, simply provide your compiled template with a <code>Writer</code> object and
+			a <code>Map</code> of variables to get your output!
+		</p>
+  		<pre class="java">{{ '
 Writer writer = new StringWriter();
-compiledTemplate.render(writer);
+
+Map<String, Object> context = new HashMap<>();
+context.put("name", "Mitchell");
+
+compiledTemplate.evaluate(writer, context);
 
 String output = writer.toString();
 				' | trim | escape }}</pre> 
-				</p>
-			</div>
-		</div>
+		</p>
 		
+		<h3>Custom Loader</h3>
+		<p>
+			The constructor for <code>PebbleEngine</code> can be invoked with
+			a {{ api(currentVersion, 'loader', 'Loader') }} implementation as an argument.
+			A <code>Loader</code> is responsible for finding your templates and 
+			providing associated <code>java.io.Reader</code> objects.  
+		</p>
+		<p>
+			If you do not provide a custom Loader, Pebble will use a default implementation.
+			The default implementation uses several techniques to find your templates:
+			<ul>
+				<li><code>Thread.currentThread().getContextClassLoader().getResourceAsStream(templateName)</code></li>
+				<li><code>DefaultLoader.class.getClassLoader().getResourceAsStream(templateName)</code></li>
+				<li><code>new File(...)</code>
+			</ul>
+		</p>
 		
 		<h3>Pebble Engine Settings</h3>
+		<p>
+			Take a look at the API for the {{ api(currentVersion, null, 'PebbleEngine') }} class
+			to find the methods needed to modify the below settings.
+		</p>
 		<p>
 			<dl class="dl-horizontal">
 				<dt>cache</dt>

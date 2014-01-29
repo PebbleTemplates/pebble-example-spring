@@ -28,6 +28,7 @@
 						{%  block navigation %}
 							{{ navItem(contextRoot, "Home", "home", "Home" equals activeNav) }}
 							{{ navItem(contextRoot, "Documentation", "documentation", "Documentation" equals activeNav) }}
+							{{ navItem(contextRoot, "Contributing", "contributing", "Contributing" equals activeNav) }}
 							<li><a href="http://blog.pebble.mitchellbosecke.com">Blog</a></li>
 						{% endblock navigation %}
 				    </ul>
@@ -52,6 +53,7 @@
         		<p>&copy; 2014 Mitchell Bösecke</p>
         		<p>
         			<ul>
+        				<li><a href="https://github.com/mbosecke/pebble">Github</a></li>
         				<li><a href="/{{ contextRoot }}/license">License</a></li>
         				<li><a href="https://github.com/mbosecke/pebble/issues">Issues</a></li>
         				<li><a href="https://groups.google.com/forum/#!forum/pebble-templating-engine">Forum</a></li>
