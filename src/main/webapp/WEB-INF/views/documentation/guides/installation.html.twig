@@ -74,7 +74,7 @@ String output = writer.toString();
 			The constructor for <code>PebbleEngine</code> can be invoked with
 			a {{ api(currentVersion, 'loader', 'Loader') }} implementation as an argument.
 			A <code>Loader</code> is responsible for finding your templates and 
-			providing associated <code>java.io.Reader</code> objects.  
+			returning an associated <code>java.io.Reader</code> object.  
 		</p>
 		<p>
 			If you do not provide a custom Loader, Pebble will use a default implementation.

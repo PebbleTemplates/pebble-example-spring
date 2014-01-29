@@ -101,7 +101,7 @@ String output = writer.toString();
 	<p>
 		When <code>strictVariables</code> is set to <code>false</code> your expressions will also
 		become null safe. The following expression will print an empty string even if <code>foo</code>
-		and <code>bar</code> are null:
+		and/or <code>bar</code> are null:
 		<pre>{{ '
 {{ foo.bar.baz }}' | trim | escape }}</pre>
 	</p>
@@ -173,6 +173,9 @@ IF LIFE GI...' | trim | escape }}</pre>
 </div>
 '
 		| trim | escape }}</pre>
+	<p>
+		The included template will use the same variables that the current template does.
+	</p>
 	
 	<h3>Template Inheritance</h3>
 	<p>Template inheritance is the most powerful feature of Pebble. It allows templates
@@ -213,8 +216,7 @@ IF LIFE GI...' | trim | escape }}</pre>
 	<p>The first line uses the <code><a href="../tag/extends">extends</a></code> tag to declare
 	the parent template. The <code>extends</code> tag should be the first tag in the template and there can only be one.</p> 
 	
-	<p>In the above example, because the child template doesn't override the <code>footer</code> block, the value from
-	the parent is used instead. Rendering the child template will produce the following output:</p>
+	<p>Evaluating the child template will produce the following output:</p>
 		<pre>{{ '
 <html>
 <head>
@@ -231,6 +233,8 @@ IF LIFE GI...' | trim | escape }}</pre>
 </body>
 </html>
 ' | trim | escape }}</pre>
+		<p>You may have noticed that in the above example, because the child template doesn't 
+		override the <code>footer</code> block, the value from the parent is used instead.</p>
 	
 	<h3>Macros</h3>
 	<p>Macros are lightweight and reusable template fragments. They are similar to functions in that they
@@ -247,7 +251,7 @@ IF LIFE GI...' | trim | escape }}</pre>
 ' | trim | escape }}</pre>
 	<p>Child templates will have access to macros defined in a parent template. To use macros located in 
 	a completely unrelated template, you must can use the <code><a href="../tag/import">import</a></code> 
-	tag. A macro does not have access to the main context; the only variables it can access are it's arguments.</p>
+	tag. A macro does not have access to the main context; the only variables it can access are it's local arguments.</p>
 	
 	<h3>Expressions</h3>
 	<p>Expressions in a Pebble template are very similar to expressions found in Java.</p>
