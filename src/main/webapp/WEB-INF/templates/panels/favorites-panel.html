@@ -4,8 +4,8 @@
 
 {% block navItems %}
 	{# The panelNavigation macro is located in the parent template #}
-	{{ panelNavigation('#news', 'News Feed') }}
-	{{ panelNavigation('#messages', 'Mesages') }}
-	{{ panelNavigation('#events', 'Events') }}
-	{{ panelNavigation('#photos', 'Photos') }}
+	{{ panelNavigation('home#news', 'News Feed') }}
+	{{ panelNavigation('home#messages', 'Mesages') }}
+	{{ panelNavigation('home#events', 'Events') }}
+	{{ panelNavigation('home#photos', 'Photos') }}
 {% endblock %}

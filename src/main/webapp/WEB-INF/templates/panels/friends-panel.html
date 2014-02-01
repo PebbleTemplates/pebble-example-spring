@@ -4,8 +4,8 @@
 
 {% block navItems %}
 	{# The panelNavigation macro is located in the parent template #}
-	{{ panelNavigation('#family', 'Family') }}
-	{{ panelNavigation('#coworkers', 'Coworkers') }}
-	{{ panelNavigation('#acquaintances', 'Acquaintances') }}
-	{{ panelNavigation('#bestfriends', 'Best Friends') }}
+	{{ panelNavigation('home#family', 'Family') }}
+	{{ panelNavigation('home#coworkers', 'Coworkers') }}
+	{{ panelNavigation('home#acquaintances', 'Acquaintances') }}
+	{{ panelNavigation('home#bestfriends', 'Best Friends') }}
 {% endblock %}
