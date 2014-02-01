@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 		
-	<name>Pebble Website</name>
-	<description>Pebble Website</description>
+	<name>Pebble Example - Spring</name>
+	<description>Pebble Example - Spring</description>
 	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.mitchellbosecke</groupId>
-	<artifactId>pebble-web</artifactId>
+	<artifactId>pebble-example-spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 		
@@ -16,7 +16,7 @@
 	</properties>
 	
 	<build>
-		<finalName>pebble-web</finalName>
+		<finalName>pebble-example-spring</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -26,27 +26,6 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-			<plugin>
-                <groupId>org.glassfish.maven.plugin</groupId>
-                <artifactId>maven-glassfish-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                	 <glassfishDirectory>F:\Program Files (x86)\glassfish3\glassfish\</glassfishDirectory>
-                	 <user>admin</user>
-                	 <adminPassword>adminadmin</adminPassword>
-                	 <domain>
-                        <name>${project.artifactId}</name>
-                        <adminPort>4848</adminPort>
-                        <httpPort>8080</httpPort>
-                     </domain>
-                     <components>
-                        <component>
-                            <name>${project.artifactId}</name>
-                            <artifact>${project.build.directory}/${project.build.finalName}.war</artifact>
-                        </component>
-                    </components>
-                </configuration>
-            </plugin>
 		</plugins>
 	</build>
 	
@@ -74,18 +53,10 @@
 		</dependency>
 	</dependencies>
 	
-	<pluginRepositories>
-        <pluginRepository>
-            <id>maven.java.net</id>
-            <name>Java.net Maven2 Repository</name>
-            <url>http://download.java.net/maven/2</url>
-        </pluginRepository>
-    </pluginRepositories>
-	
 	<scm>
-		<connection>scm:git:git://github.com/mbosecke/pebble-website.git</connection>
-		<developerConnection>scm:git:git@github.com:mbosecke/pebble-website.git</developerConnection>
-		<url>http://github.com/mbosecke/pebble-website</url>
+		<connection>scm:git:git://github.com/mbosecke/pebble-example-spring.git</connection>
+		<developerConnection>scm:git:git@github.com:mbosecke/pebble-example-spring.git</developerConnection>
+		<url>http://github.com/mbosecke/pebble-example-spring</url>
 	</scm>
 	
 </project>

@@ -1,0 +1,11 @@
+{% extends 'panels/panel' %}
+
+{% block title %} Friends {% endblock %}
+
+{% block navItems %}
+	{# The panelNavigation macro is located in the parent template #}
+	{{ panelNavigation('#family', 'Family') }}
+	{{ panelNavigation('#coworkers', 'Coworkers') }}
+	{{ panelNavigation('#acquaintances', 'Acquaintances') }}
+	{{ panelNavigation('#bestfriends', 'Best Friends') }}
+{% endblock %}

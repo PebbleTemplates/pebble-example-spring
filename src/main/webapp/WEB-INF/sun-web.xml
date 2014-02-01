@@ -3,5 +3,5 @@
      "-//Sun Microsystems, Inc.//DTD GlassFish Application Server 3.0 Servlet 3.0//EN"   
      "http://www.sun.com/software/appserver/dtds/sun-web-app_3_0-0.dtd">
 <sun-web-app error-url="">
-	<context-root>/pebble</context-root>
+	<context-root>/pebble-example-spring</context-root>
 </sun-web-app>
