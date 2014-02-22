@@ -16,12 +16,10 @@ public class ProfileController {
 	private UserService userService;
 
 	@RequestMapping
-	public ModelAndView getUserProfile(@RequestParam(value = "id") long id) {
+	public ModelAndView getUserProfile(@RequestParam("id") long id) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("profile");
-
-		mav.addObject("activeNav", "profile");
 		mav.addObject("user", userService.getUser(id));
+		mav.setViewName("profile");
 		return mav;
 	}
 
