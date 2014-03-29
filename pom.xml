@@ -12,7 +12,7 @@
 		
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<pebble.version>0.4.0</pebble.version>
+		<pebble.version>1.0.0</pebble.version>
 	</properties>
 	
 	<build>
