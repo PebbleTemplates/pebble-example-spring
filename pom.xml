@@ -13,6 +13,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<pebble.version>1.3.1</pebble.version>
+		<spring.version>3.2.13.RELEASE</spring.version>
 	</properties>
 	
 	<build>
@@ -33,7 +34,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>3.1.3.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.mitchellbosecke</groupId>

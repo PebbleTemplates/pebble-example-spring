@@ -4,23 +4,33 @@
 	version="2.5">
 
 	<display-name>Pebble Example - Spring</display-name>
-	
+
 	<context-param>
-    	<param-name>contextConfigLocation</param-name>
-    	<param-value>/WEB-INF/servlet-context.xml</param-value>
+		<param-name>contextClass</param-name>
+		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
 	</context-param>
-	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>com.example.config.AppConfig</param-value>
+	</context-param>
+
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+
 	<servlet>
 		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
+			<param-name>contextClass</param-name>
+			<param-value>
+            	org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+        	</param-value>
+		</init-param>
+		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
-				/WEB-INF/servlet-context.xml
+				com.example.config.MvcConfig
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
