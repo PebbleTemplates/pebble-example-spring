@@ -12,7 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<pebble.version>1.5.0</pebble.version>
+		<pebble.version>1.5.1</pebble.version>
 		<spring.version>3.2.13.RELEASE</spring.version>
 	</properties>
 
