@@ -1,7 +1,9 @@
 package com.example.config;
 
-import javax.servlet.ServletContext;
-
+import com.mitchellbosecke.pebble.PebbleEngine;
+import com.mitchellbosecke.pebble.loader.Loader;
+import com.mitchellbosecke.pebble.loader.ServletLoader;
+import com.mitchellbosecke.pebble.spring.PebbleViewResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,33 +13,29 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.mitchellbosecke.pebble.PebbleEngine;
-import com.mitchellbosecke.pebble.loader.Loader;
-import com.mitchellbosecke.pebble.loader.ServletLoader;
-import com.mitchellbosecke.pebble.spring.PebbleViewResolver;
+import javax.servlet.ServletContext;
 
 @Configuration
 @ComponentScan(basePackages = { "com.example.controller", "com.example.service" })
 @EnableWebMvc
 public class MvcConfig extends WebMvcConfigurerAdapter {
-    
+
     @Autowired
     private ServletContext servletContext;
-    
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/").setCachePeriod(31556926);
     }
-    
+
     @Bean
-    public Loader templateLoader(){
+    public Loader templateLoader() {
         return new ServletLoader(servletContext);
     }
 
-    @Bean 
+    @Bean
     public PebbleEngine pebbleEngine() {
-        return new PebbleEngine(templateLoader());
+        return new PebbleEngine.Builder().loader(templateLoader()).build();
     }
 
     @Bean
