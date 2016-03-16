@@ -1,0 +1,14 @@
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+		    <a class="navbar-brand" href="/pebble-example-spring/home">Social Network</a>
+	  	</div>
+	  	
+		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			<ul class="nav navbar-nav">
+				<li class="{% if activeNav == 'home' %} active {% endif %}"><a href="home">Home</a></li>
+				<li class="{% if activeNav == 'profile' %} active {% endif %}"><a href="profile?id=1">My Profile</a></li>
+		    </ul>
+		</div>
+	</div><!-- end nav container -->
+</div><!-- end navbar -->
