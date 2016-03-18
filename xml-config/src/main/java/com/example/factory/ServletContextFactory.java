@@ -6,6 +6,7 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.web.context.ServletContextAware;
 
 public class ServletContextFactory implements FactoryBean<ServletContext>, ServletContextAware {
+
     private ServletContext servletContext;
 
     @Override

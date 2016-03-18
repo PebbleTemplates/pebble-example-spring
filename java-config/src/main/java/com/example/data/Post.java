@@ -4,63 +4,63 @@ import java.util.Date;
 
 public class Post {
 
-	private long userId;
-	
-	private String userName;
-	
-	private Date date;
-	
-	private String details;
-	
-	private int likes;
+    private long userId;
 
-	public long getUserId() {
-		return userId;
-	}
+    private String userName;
 
-	public Post(long userId, String userName, Date date, int likes, String details) {
-		super();
-		this.userId = userId;
-		this.userName = userName;
-		this.date = date;
-		this.likes = likes;
-		this.details = details;
-	}
+    private Date date;
 
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
+    private String details;
 
-	public String getUserName() {
-		return userName;
-	}
+    private int likes;
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public long getUserId() {
+        return userId;
+    }
 
-	public Date getDate() {
-		return date;
-	}
+    public Post(long userId, String userName, Date date, int likes, String details) {
+        super();
+        this.userId = userId;
+        this.userName = userName;
+        this.date = date;
+        this.likes = likes;
+        this.details = details;
+    }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
-	public String getDetails() {
-		return details;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public void setDetails(String details) {
-		this.details = details;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public int getLikes() {
-		return likes;
-	}
+    public Date getDate() {
+        return date;
+    }
 
-	public void setLikes(int likes) {
-		this.likes = likes;
-	}
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
 
 }
