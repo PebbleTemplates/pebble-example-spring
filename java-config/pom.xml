@@ -24,7 +24,7 @@
 
 		<dependency>
 			<groupId>com.mitchellbosecke</groupId>
-			<artifactId>pebble-spring3</artifactId>
+			<artifactId>pebble-spring4</artifactId>
 		</dependency>
 
 		<!-- LOGGING -->

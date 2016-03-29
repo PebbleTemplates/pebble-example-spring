@@ -14,8 +14,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.mitchellbosecke.pebble.PebbleEngine;
 import com.mitchellbosecke.pebble.loader.Loader;
 import com.mitchellbosecke.pebble.loader.ServletLoader;
-import com.mitchellbosecke.pebble.spring.PebbleViewResolver;
-import com.mitchellbosecke.pebble.spring.extension.SpringExtension;
+import com.mitchellbosecke.pebble.spring4.PebbleViewResolver;
+import com.mitchellbosecke.pebble.spring4.extension.SpringExtension;
 
 @Configuration
 @ComponentScan(basePackages = { "com.example.controller", "com.example.service" })

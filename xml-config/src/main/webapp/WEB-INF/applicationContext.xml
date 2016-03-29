@@ -20,11 +20,14 @@
 		<constructor-arg ref="servletContext" />
 	</bean>
 	
+	<bean id="springExtension" class="com.mitchellbosecke.pebble.spring4.extension.SpringExtension" />
+	
 	<bean id="pebbleEngine" class="com.example.factory.PebbleEngineFactory" factory-method="instance">
 		<constructor-arg ref="templateLoader" />
+		<constructor-arg ref="springExtension" />
 	</bean>
 	
-	<bean id="viewResolver" class="com.mitchellbosecke.pebble.spring.PebbleViewResolver">	
+	<bean id="viewResolver" class="com.mitchellbosecke.pebble.spring4.PebbleViewResolver">	
 		<property name="prefix" value="/WEB-INF/templates/" />
 		<property name="suffix" value=".html" />
 		<property name="pebbleEngine" ref="pebbleEngine" />
