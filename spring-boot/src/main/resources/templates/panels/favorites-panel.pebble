@@ -1,0 +1,11 @@
+{% extends 'panels/panel' %}
+
+{% block title %} Favorites {% endblock %}
+
+{% block navItems %}
+	{# The panelNavigation macro is located in the parent template #}
+	{{ panelNavigation('home#news', 'News Feed') }}
+	{{ panelNavigation('home#messages', 'Mesages') }}
+	{{ panelNavigation('home#events', 'Events') }}
+	{{ panelNavigation('home#photos', 'Photos') }}
+{% endblock %}

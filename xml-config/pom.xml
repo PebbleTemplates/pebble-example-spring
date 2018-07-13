@@ -23,7 +23,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.mitchellbosecke</groupId>
+      <groupId>io.pebbletemplates</groupId>
 			<artifactId>pebble-spring4</artifactId>
 		</dependency>
 
@@ -55,8 +55,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>${javasource}</source>
-					<target>${javatarget}</target>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
 				</configuration>
 			</plugin>
 			<plugin>

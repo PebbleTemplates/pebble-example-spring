@@ -5,10 +5,20 @@
 *.war
 *.ear
 
+# Mac OS X
+.DS_Store
+
 # Eclipse #
 .project
 .classpath
 .settings/
 
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
 target/*
 /target
+/bin/
