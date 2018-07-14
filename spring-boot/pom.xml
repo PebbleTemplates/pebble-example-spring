@@ -14,10 +14,7 @@
   <artifactId>pebble-example-spring-boot</artifactId>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>1.8</java.version>
-
-    <pebble.version>3.0.0-SNAPSHOT</pebble.version>
+    <pebble.version>3.0.0</pebble.version>
   </properties>
 
   <dependencies>

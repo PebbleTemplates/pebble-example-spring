@@ -1,78 +1,80 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	<name>Pebble Example - Spring</name>
-	<description>Pebble Example - Spring</description>
+  <name>Pebble Example - Spring</name>
+  <description>Pebble Example - Spring</description>
 
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.mitchellbosecke</groupId>
-	<artifactId>pebble-example-spring</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.mitchellbosecke</groupId>
+  <artifactId>pebble-example-spring</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
-	<modules>
-		<module>java-config</module>
-		<module>xml-config</module>
+  <modules>
+    <module>java-config</module>
+    <module>xml-config</module>
     <module>spring-boot</module>
   </modules>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
 
-    <pebble.version>3.0.0-SNAPSHOT</pebble.version>
+    <pebble.version>3.0.0</pebble.version>
     <spring-framework.version>5.0.7.RELEASE</spring-framework.version>
     <slf4j.version>1.7.25</slf4j.version>
-		<log4j.version>2.3</log4j.version>
-		<servlet-api.version>3.0.1</servlet-api.version>
-	</properties>
+    <log4j.version>2.3</log4j.version>
+    <servlet-api.version>3.0.1</servlet-api.version>
+  </properties>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-framework-bom</artifactId>
-				<version>${spring-framework.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-framework-bom</artifactId>
+        <version>${spring-framework.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
 
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-bom</artifactId>
-				<version>${log4j.version}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-bom</artifactId>
+        <version>${log4j.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
 
-			<dependency>
+      <dependency>
         <groupId>io.pebbletemplates</groupId>
-				<artifactId>pebble-spring4</artifactId>
-				<version>${pebble.version}</version>
-			</dependency>
+        <artifactId>pebble-spring4</artifactId>
+        <version>${pebble.version}</version>
+      </dependency>
 
-			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>javax.servlet-api</artifactId>
-				<version>${servlet-api.version}</version>
-			</dependency>
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>${servlet-api.version}</version>
+      </dependency>
 
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>jcl-over-slf4j</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-log4j12</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
-	<scm>
-		<connection>scm:git:git://github.com/PebbleTemplates/pebble-example-spring.git</connection>
-		<developerConnection>scm:git:git@github.com:PebbleTemplates/pebble-example-spring.git</developerConnection>
-		<url>https://github.com/PebbleTemplates/pebble-example-spring</url>
-	</scm>
+  <scm>
+    <connection>scm:git:git://github.com/PebbleTemplates/pebble-example-spring.git</connection>
+    <developerConnection>scm:git:git@github.com:PebbleTemplates/pebble-example-spring.git
+    </developerConnection>
+    <url>https://github.com/PebbleTemplates/pebble-example-spring</url>
+  </scm>
 </project>
