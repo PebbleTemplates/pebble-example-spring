@@ -2,9 +2,9 @@ package com.example.controller;
 
 import com.example.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ProfileController {
@@ -15,12 +15,10 @@ public class ProfileController {
     this.userService = userService;
   }
 
-  @RequestMapping(value = "/profile")
-  public ModelAndView getUserProfile(@RequestParam("id") long id) {
-    ModelAndView mav = new ModelAndView();
-    mav.addObject("user", this.userService.getUser(id));
-    mav.setViewName("profile");
-    return mav;
+  @GetMapping(value = "/profile")
+  public String getUserProfile(@RequestParam("id") long id, Model model) {
+    model.addAttribute("user", this.userService.getUser(id));
+    return "profile";
   }
 
 }

@@ -2,9 +2,8 @@ package com.example.controller;
 
 import com.example.service.PostService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
@@ -15,11 +14,9 @@ public class HomeController {
     this.postService = postService;
   }
 
-  @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
-  public ModelAndView getUserListing() {
-    ModelAndView mav = new ModelAndView();
-    mav.addObject("posts", this.postService.getPosts());
-    mav.setViewName("home");
-    return mav;
+  @GetMapping({"/", "/home"})
+  public String getUserListing(Model model) {
+    model.addAttribute("posts", this.postService.getPosts());
+    return "home";
   }
 }
