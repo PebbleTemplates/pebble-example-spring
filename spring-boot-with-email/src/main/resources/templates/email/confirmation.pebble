@@ -1,0 +1,6 @@
+{% extends 'base' %}
+{% set activeNav = 'home' %}
+
+{% block content %}
+		Email was sent successfully
+{% endblock content%}

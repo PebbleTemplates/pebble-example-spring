@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{% block title %}{% endblock %}</h3>
+  </div>
+  <div class="panel-body">
+  	
+	<ul class="nav">
+    	{% block navItems %}{% endblock %}
+    </ul>
+  </div>
+</div>
+
+{% macro panelNavigation(href, name) %}
+	<li><a href="{{ href }}">{{ name }}</a></li>
+{% endmacro %}

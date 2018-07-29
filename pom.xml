@@ -15,6 +15,7 @@
     <module>java-config</module>
     <module>xml-config</module>
     <module>spring-boot</module>
+    <module>spring-boot-with-email</module>
   </modules>
 
   <properties>

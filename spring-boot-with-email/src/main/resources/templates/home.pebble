@@ -1,0 +1,28 @@
+{% extends 'base' %}
+{% set activeNav = 'home' %}
+
+{% block content %}   
+	
+		{% for post in posts %}
+			<div class="row news-item">
+				<div class="col-md-2">
+					<a href="profile?id={{ post.userId }}" class="thumbnail">
+      					<img src="/images/{{ post.userId }}.jpg">
+    				</a>
+				</div>
+				<div class="col-md-6">
+					<h4><a href="profile?id={{ post.userId }}">{{ post.userName }}</a><small> {{ post.date | date("MMM-DD") }}</small></h4>
+					<p> {{ post.details }} </p>
+					<p class="like-count"> {{ post.likes }} likes </p>
+
+					<form method="POST" action="/emails">
+            <div class="comments">
+              <input type="text" name="comment" placeholder="Write a comment..." />
+            </div>
+            <input type="submit" value="Send"/>
+					</form>
+				</div>
+			</div>   
+		{% endfor %}
+		
+{% endblock content%}

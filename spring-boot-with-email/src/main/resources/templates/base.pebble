@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/css/style.css" />
+        <title>Pebble Spring Example</title>
+    </head>
+    <body>
+    	
+    	<div id="wrap">
+    	
+			{% include 'navbar' %}
+	    	
+	    	<div class="container">
+	    	
+	    		<div class="row">
+	        		<div class="col-md-3">
+	        			{% include 'sidebar' %}
+	        		</div>
+	        		<div class="col-md-9">
+	        			{% block content %}
+	        				{# This section is to be overriden by child templates #}
+	        			{% endblock content %}
+	        		</div>
+	        	</div>
+	        	
+	        </div><!-- end container -->
+	        
+        </div><!-- end wrap -->
+        
+        {% include 'footer' %}
+        
+        <script src="///ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+    </body>
+</html>

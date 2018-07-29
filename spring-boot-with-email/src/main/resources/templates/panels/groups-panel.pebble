@@ -1,0 +1,10 @@
+{% extends 'panels/panel' %}
+
+{% block title %} Groups {% endblock %}
+
+{% block navItems %}
+	{# The panelNavigation macro is located in the parent template #}
+	{{ panelNavigation('home#highschool', 'High School') }}
+	{{ panelNavigation('home#university', 'University Club') }}
+	{{ panelNavigation('home#programming', 'Programming Club') }}
+{% endblock %}
