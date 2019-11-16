@@ -14,7 +14,7 @@
   <artifactId>pebble-example-spring-boot</artifactId>
 
   <properties>
-    <pebble.version>3.1.0</pebble.version>
+    <pebble.version>3.1.1</pebble.version>
   </properties>
 
   <dependencies>
