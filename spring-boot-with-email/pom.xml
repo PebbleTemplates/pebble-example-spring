@@ -14,7 +14,7 @@
   <artifactId>pebble-example-spring-boot-with-email</artifactId>
 
   <properties>
-    <pebble.version>3.1.4</pebble.version>
+    <pebble.version>3.1.5</pebble.version>
   </properties>
 
   <dependencies>
