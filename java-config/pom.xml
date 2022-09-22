@@ -25,7 +25,7 @@
 
     <dependency>
       <groupId>io.pebbletemplates</groupId>
-      <artifactId>pebble-spring4</artifactId>
+      <artifactId>pebble-spring5</artifactId>
     </dependency>
 
     <!-- LOGGING -->

@@ -3,10 +3,10 @@ package com.example.config;
 import com.mitchellbosecke.pebble.PebbleEngine;
 import com.mitchellbosecke.pebble.loader.Loader;
 import com.mitchellbosecke.pebble.loader.ServletLoader;
-import com.mitchellbosecke.pebble.spring4.PebbleViewResolver;
-import com.mitchellbosecke.pebble.spring4.extension.SpringExtension;
-import javax.servlet.ServletContext;
+import com.mitchellbosecke.pebble.spring.extension.SpringExtension;
+import com.mitchellbosecke.pebble.spring.servlet.PebbleViewResolver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,13 +15,12 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
+import javax.servlet.ServletContext;
+
+@Configuration(proxyBeanMethods = false)
 @ComponentScan(basePackages = { "com.example.controller", "com.example.service" })
 @EnableWebMvc
 public class MvcConfig implements WebMvcConfigurer {
-
-    @Autowired
-    private ServletContext servletContext;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -29,26 +28,29 @@ public class MvcConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public PebbleEngine pebbleEngine() {
-        return new PebbleEngine.Builder().loader(this.templateLoader()).extension(this.springExtension()).build();
+    public PebbleEngine pebbleEngine(Loader<?> templateLoader,
+                                     SpringExtension springExtension) {
+        return new PebbleEngine.Builder()
+                .loader(templateLoader)
+                .extension(springExtension)
+                .build();
     }
 
     @Bean
-    public SpringExtension springExtension() {
-        return new SpringExtension();
+    public SpringExtension springExtension(MessageSource messageSource) {
+        return new SpringExtension(messageSource);
     }
 
     @Bean
-    public Loader<?> templateLoader() {
-        return new ServletLoader(this.servletContext);
+    public Loader<?> templateLoader(ServletContext servletContext) {
+        return new ServletLoader(servletContext);
     }
 
     @Bean
-    public ViewResolver viewResolver() {
-        PebbleViewResolver viewResolver = new PebbleViewResolver();
+    public ViewResolver viewResolver(PebbleEngine pebbleEngine) {
+        PebbleViewResolver viewResolver = new PebbleViewResolver(pebbleEngine);
         viewResolver.setPrefix("/WEB-INF/templates/");
         viewResolver.setSuffix(".html");
-        viewResolver.setPebbleEngine(this.pebbleEngine());
         return viewResolver;
     }
 
