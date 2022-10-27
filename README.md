@@ -1,4 +1,4 @@
 pebble-example-spring
 =====================
 
-Example Application using Spring + Pebble
+**NO LONGER SUPPORTED.** Please use [spring-petclinic](https://github.com/PebbleTemplates/spring-petclinic) instead
